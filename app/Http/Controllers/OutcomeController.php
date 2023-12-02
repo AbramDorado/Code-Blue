@@ -27,7 +27,12 @@ class OutcomeController extends Controller
             'outcome' => 'required', // Adjust validation rules as needed
         ]);
 
-        // Create a new Outcome instance and populate its fields
+        $existingOutcome = Outcome::where('code_number', $code_number)->first();
+
+        if ($existingOutcome) {
+            return $this->updateOutcome($request, $existingOutcome, $code_number);
+        }
+
         $outcome = new Outcome();
         $outcome->outcome = $request->input('outcome');
 
@@ -53,12 +58,18 @@ class OutcomeController extends Controller
             $outcome->rhythm = $request->input('rhythm') ?? null;
         }
 
-        // Save the outcome to the database
         $outcome->code_number = $code_number;
         $outcome->save();
 
-        // Redirect to a success page or perform any other actions
         return view('evaluation', ['code_number' => $code_number]);
+    }
+
+    public function updateOutcome(Request $request, Outcome $existingOutcome, $code_number)
+    {
+    $existingOutcome->fill($request->all());
+    $existingOutcome->save();
+    
+    return view('evaluation', ['code_number' => $code_number]);
     }
 
 }

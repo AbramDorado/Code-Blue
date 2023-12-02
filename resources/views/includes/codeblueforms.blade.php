@@ -66,24 +66,6 @@
                                         <td>{{ $event->code_start_dt }}</td>
                                         <td>{{ $event->code_end_dt }}</td>
                                         <td>{{ $event->code_team_leader }}</td>
-                                        <td>
-                                        <div class="btn-group" role="group">
-                                            <a href="{{ route('view_codeblueforms', ['code_number' => $event->code_number]) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
-                                            <a href="{{ route('edit_codeblueforms', ['code_number' => $event->code_number]) }}" class="btn btn-warning"><i class="fas fa-pencil-alt"></i></a>
-
-                                            <!-- Archive button using a form with POST method -->
-                                            <form action="{{ route('archive_codeblueforms', ['code_number' => $event->code_number]) }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                @method('POST')
-                                                <button type="submit" class="btn btn-info" onclick="return confirm('Are you sure you want to archive this record?')">
-                                                    <i class="fas fa-archive"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                        </td>
-                                        <td>        
-                                            <a href="{{ route('download-pdf', ['codeEvent' => $event->code_number]) }}" class="btn btn-danger">PDF</a>
-                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

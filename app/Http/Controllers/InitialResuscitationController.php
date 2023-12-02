@@ -25,11 +25,12 @@ class InitialResuscitationController extends Controller
     }
 
     public function store(Request $request, $code_number)
-{
+    {
     $validatedData = $request->validate([
         'breathing_upon_ca' => 'sometimes|nullable|string',
         'first_ventilation_dt' => 'sometimes|nullable|date',
         'ventilation' => 'sometimes|nullable|string',
+        'other_ventilation' => 'sometimes|nullable|string',
         'intubation_dt' => 'sometimes|nullable|date',
         'et_tube_size' => 'sometimes|nullable|string',
         'intubation_attempts' => 'sometimes|nullable|integer',
@@ -44,11 +45,18 @@ class InitialResuscitationController extends Controller
         'pacemaker_on_dt' => 'sometimes|nullable|date',
     ]);
 
+    $existingInitialResuscitation = InitialResuscitation::where('code_number', $code_number)->first();
+
+    if ($existingInitialResuscitation) {
+        return $this->updateInitialResuscitation($request, $existingInitialResuscitation, $code_number);
+    }
+
     $initialResuscitation = new InitialResuscitation;
 
     $initialResuscitation->breathing_upon_ca = $validatedData['breathing_upon_ca'] ?? null;
     $initialResuscitation->first_ventilation_dt = $validatedData['first_ventilation_dt'] ?? null;
     $initialResuscitation->ventilation = $validatedData['ventilation'] ?? null;
+    $initialResuscitation->other_ventilation = $validatedData['other_ventilation'] ?? null;
     $initialResuscitation->intubation_dt = $validatedData['intubation_dt'] ?? null;
     $initialResuscitation->et_tube_size = $validatedData['et_tube_size'] ?? null;
     $initialResuscitation->intubation_attempts = $validatedData['intubation_attempts'] ?? null;
@@ -74,7 +82,32 @@ class InitialResuscitationController extends Controller
     $initialResuscitation->save();
 
     return view('flowsheet', compact('code_number'));
-}
+    }
 
+    public function updateInitialResuscitation(Request $request, InitialResuscitation $existingInitialResuscitation, $code_number)
+    {
+        $existingInitialResuscitation->fill($request->all());
+
+        // Get the existing et_tube_information as an array
+        $etTubeInformation = $existingInitialResuscitation->et_tube_information ?? [];
+        
+        // If the existing information is not an array, initialize it as an empty array
+        if (!is_array($etTubeInformation)) {
+            $etTubeInformation = [];
+        }
+        
+        // Update et_tube_information with the new data
+        $etTubeInformation = array_merge($etTubeInformation, $request->input('et_tube_information', []));
+        
+        // Save the updated et_tube_information
+        $existingInitialResuscitation->et_tube_information = $etTubeInformation;
+        
+        // Save the changes
+        $existingInitialResuscitation->save();
+        
+        
+    
+    return view('flowsheet', ['code_number' => $code_number]);
+    }
 }
 

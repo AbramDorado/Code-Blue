@@ -31,83 +31,77 @@
                    
                 <form method="POST" action="{{ route('store_codeteam', ['code_number' => $code_number]) }}">
     @csrf
-                        <div class="form-group">
+                        <!-- Code Team Leader -->
+                    <div class="form-group">
                         <label for="code_team_leader">Code Team Leader:</label>
-                            <select class="form-control" name="code_team_leader" id="code_team_leader" required>
-                                <option value="" disabled selected>Select</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <select class="form-control" name="code_team_leader" id="code_team_leader" required>
+                            <option value="" disabled selected>Select</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->name }}" {{ old('code_team_leader') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="code_team_co_leader">Code Team Co-Leader:</label>
-                            <select class="form-control" name="code_team_co_leader" id="code_team_co_Leader">
-                                <option value="" disabled selected>Select</option>
-                                <option value="-1">None</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <!-- Code Team Co-Leader -->
+                    <div class="form-group">
+                        <label for="code_team_co_leader">Code Team Co-Leader:</label>
+                        <select class="form-control" name="code_team_co_leader" id="code_team_co_Leader">
+                            <option value="" disabled selected>Select</option>
+                            <option value="-1" {{ old('code_team_co_leader') == '-1' ? 'selected' : '' }}>None</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->name }}" {{ old('code_team_co_leader') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="recorder">Recorder:</label>
-                            <select class="form-control" name="recorder" id="recorder" required>
-                                <option value="" disabled selected>Select</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <!-- Recorder -->
+                    <div class="form-group">
+                        <label for="recorder">Recorder:</label>
+                        <select class="form-control" name="recorder" id="recorder" required>
+                            <option value="" disabled selected>Select</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->name }}" {{ old('recorder') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="code_team_member">Code Team Member:</label>
-                            <div class="form-inline mt-2">
-                                <button type="button" class="btn btn-danger mr-2" id="remove_member">-</button>    
-                                <button type="button" class="btn btn-success mr-2" id="add_member">+</button>                        
-                                <label for="num_members" class="mr-2">Number of Members:</label>
-                                <input type="number" class="form-control mr-2" id="num_members" name="num_members" value="1" min="1" max="15">
-                            </div>
-                            <div id="code_team_member_container" class="mt-2">
-                                <!-- Initial dropdown field -->
-                                <div class="form-group">
-                                    <select class="form-control" name="code_team_member[]" id="user1">
-                                        <option value="" disabled selected>Select</option>
-                                        @foreach($users as $user)
-                                            <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Code Team Member -->
+                    <div class="form-group">
+                        <!-- Your existing code for adding/removing members -->
 
+                        <!-- Initial dropdown field with old input support -->
+                        <select class="form-control" name="code_team_member[]" id="user1">
+                            <option value="" disabled selected>Select</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->name }}" {{ old('code_team_member.0') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="intubated_by">Intubated by:</label>
-                            <select class="form-control" name="intubated_by" id="intubated_by">
-                                <option value="" disabled selected>Select</option>
-                                <option value="-1">None</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->name }}">{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <!-- Intubated by -->
+                    <div class="form-group">
+                        <label for="intubated_by">Intubated by:</label>
+                        <select class="form-control" name="intubated_by" id="intubated_by">
+                            <option value="" disabled selected>Select</option>
+                            <option value="-1" {{ old('intubated_by') == '-1' ? 'selected' : '' }}>None</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->name }}" {{ old('intubated_by') == $user->name ? 'selected' : '' }}>{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <form action="{{ url('/store_codeteam') }}" method="post">
-                    @csrf 
-                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                </form>
-</form>
-                    
+                    <!-- Your existing code for other form elements -->
+
+                    <form action="{{ route('store_codeteam', ['code_number' => $code_number]) }}" method="post">
+                        @csrf 
+                        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- ... (previous code) ... -->
+@endsection
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

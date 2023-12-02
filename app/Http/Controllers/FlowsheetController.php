@@ -77,4 +77,80 @@ class FlowsheetController extends Controller
 
         return view('flowsheet', compact('code_number'));
     } 
+
+    public function fetchFlowsheetInformation(Request $request, $code_number)
+    {
+        $flowsheets = Flowsheet::where('code_number', $code_number)->get();
+
+        if ($flowsheets) {
+            return response()->json($flowsheets);
+        } else {
+            return response()->json(['error' => 'Flowsheets not found'], 404);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $flowsheet = Flowsheet::where('flowsheet_id', $id)->first();
+    
+        if ($flowsheet) {
+            $flowsheet->delete();
+            return response()->json(['success' => 'Flowsheet deleted successfully', 'flowsheet' => $flowsheet]);
+    
+        } else {
+            return response()->json(['error' => 'Flowsheet not found']);
+        }
+    }
+
+    public function edit($id)
+    {
+    $flowsheet = Flowsheet::find($id);
+
+    if ($flowsheet) {
+        return response()->json($flowsheet);
+    } else {
+        return response()->json(['error' => 'Flowsheet not found']);
+    }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'breathing' => 'sometimes|nullable|string',
+            'pulse' => 'sometimes|nullable|string',
+            'bp_systolic' => 'sometimes|nullable|integer',
+            'bp_diastolic' => 'sometimes|nullable|integer',
+            'rhythm_on_check' => 'sometimes|nullable|string',
+            'rhythm_with_pulse' => 'sometimes|nullable|string',
+            'rhythm_intervention' => 'sometimes|nullable|string',
+            'joules' => 'sometimes|nullable|integer',
+            'epinephrine_dose' => 'sometimes|nullable|numeric',
+            'epinephrine_route' => 'sometimes|nullable|string',
+            'amiodarone_dose' => 'sometimes|nullable|numeric',
+            'amiodarone_route' => 'sometimes|nullable|string',
+            'lidocaine_dose' => 'sometimes|nullable|numeric',
+            'lidocaine_route' => 'sometimes|nullable|string',
+            'free1_label' => 'sometimes|nullable|string',
+            'free1_dose' => 'sometimes|nullable|numeric',
+            'free1_route' => 'sometimes|nullable|string',
+            'free2_label' => 'sometimes|nullable|string',
+            'free2_dose' => 'sometimes|nullable|numeric',
+            'free2_route' => 'sometimes|nullable|string',
+            'comments' => 'sometimes|nullable|string',
+        ]);
+
+        $flowsheet = Flowsheet::find($id);
+
+        if (!$flowsheet) {
+            return response()->json(['error' => 'Flowsheet not found'], 404);
+        }
+
+        $flowsheet->update($validatedData);
+
+        return response()->json(['success' => 'Flowsheet updated successfully', 'flowsheet' => $flowsheet]);
+    }
+
+    
+
+
 }

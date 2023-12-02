@@ -15,6 +15,7 @@ class InitialResuscitation extends Model
         'breathing_upon_ca',
         'first_ventilation_dt',
         'ventilation',
+        'other_ventilation',
         'intubation_dt',
         'et_tube_size',
         'intubation_attempts',

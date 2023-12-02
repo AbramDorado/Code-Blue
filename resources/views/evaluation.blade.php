@@ -58,8 +58,8 @@
                                     <input type="radio" name="question2" value="No" id="question2_no" {{ old('question2', optional($questions ?? '')->question2) === 'No' ? 'checked' : '' }}>
                                     No
                                 </label>
-                                <div id="question2-explanation" style="display: none;">
-                                    <textarea name="question2_explanation" placeholder="Add an explanation (if necessary)">{{ old('question2_explanation', optional($model ?? '')->question2_explanation ?? '') }}</textarea>
+                                <div id="question2_1" style="display: none;">
+                                    <textarea name="question2_1" placeholder="Add an explanation (if necessary)">{{ old('question2_1', optional($questions ?? '')->question2_1 ?? '') }}</textarea>
                                 </div>
 
                             </div>
@@ -242,8 +242,8 @@
                                     <input type="radio" name="question4" value="No" id="question4_no"  {{ old('question4', optional($questions ?? '')->question4) === 'No' ? 'checked' : '' }}>
                                     No
                                 </label>
-                                <div id="question4_explanation" style="display: none;">
-                                    <textarea name="question4_explanation" placeholder="Add an explanation (if necessary)"></textarea>
+                                <div id="question4_1" style="display: none;">
+                                <textarea name="question4_1" placeholder="Add an explanation (if necessary)">{{ old('question4_1', optional($questions ?? '')->question4_1 ?? '') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -260,8 +260,8 @@
                                     <input type="radio" name="question5" value="No" id="question5_no"  {{ old('question5', optional($questions ?? '')->question5) === 'No' ? 'checked' : '' }}>
                                     No
                                 </label>
-                                <div id="question5_explanation" style="display: none;">
-                                    <textarea name="question5_explanation" placeholder="Add an explanation (if necessary)"></textarea>
+                                <div id="question5_1" style="display: none;">
+                                <textarea name="question5_1" placeholder="Add an explanation (if necessary)">{{ old('question5_1', optional($questions ?? '')->question5_1 ?? '') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -286,8 +286,7 @@
                             <div class="card-body">
                                 <p>Other Remarks</p>
                                 <div class="form-group">
-                                    <label for="question7_explanation">Question 7:</label>
-                                    <textarea class="form-control" name="question7_explanation">{{ old('question7_explanation', optional($questions ?? '')->question7_explanation ?? '') }}</textarea>
+                                    <textarea class="form-control" name="question7">{{ old('question7', optional($questions ?? '')->question7 ?? '') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -307,16 +306,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     const question2Yes = document.getElementById("question2_yes");
     const question2No = document.getElementById("question2_no");
+    const question2explanationBox = document.getElementById("question2_1");
     const question3Yes = document.getElementById("question3_yes");
     const question3No = document.getElementById("question3_no");
     const question4Yes = document.getElementById("question4_yes");
     const question4No = document.getElementById("question4_no");
     const question5Yes = document.getElementById("question5_yes");
     const question5No = document.getElementById("question5_no");
-    const question2explanationBox = document.getElementById("question2_explanation");
     const question3Details = document.getElementById("question3_details");
-    const question4explanationBox = document.getElementById("question4_explanation");
-    const question5explanationBox = document.getElementById("question5_explanation");
+    const question4explanationBox = document.getElementById("question4_1");
+    const question5explanationBox = document.getElementById("question5_1");
 
     question2Yes.addEventListener("change", function () {
         if (question2Yes.checked) {

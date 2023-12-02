@@ -25,14 +25,14 @@ class EvaluationController extends Controller
         $validatedData = $request->validate([
             'question1' => 'sometimes|nullable|in:Yes,No',
             'question2' => 'sometimes|nullable|in:Yes,No',
-            'question2_explanation' => 'sometimes|nullable|string',
+            'question2_1' => 'sometimes|nullable|string',
             'question3' => 'sometimes|nullable|in:Yes,No',
             'question4' => 'sometimes|nullable|in:Yes,No',
-            'question4_explanation' => 'sometimes|nullable|string',
+            'question4_1' => 'sometimes|nullable|string',
             'question5' => 'sometimes|nullable|in:Yes,No',
-            'question5_explanation' => 'sometimes|nullable|string',
+            'question5_1' => 'sometimes|nullable|string',
             'question6' => 'sometimes|nullable|in:Yes,No',
-            'question7_explanation' => 'sometimes|nullable|string',
+            'question7' => 'sometimes|nullable|string',
             // Questions 3_1 to 3_14
             'question3_1' => 'sometimes|nullable',
             'question3_2' => 'sometimes|nullable',
@@ -48,14 +48,19 @@ class EvaluationController extends Controller
             'question3_12' => 'sometimes|nullable',
             'question3_13' => 'sometimes|nullable',
             'question3_14' => 'sometimes|nullable',
-        ]);        
+        ]);     
+        
+        $existingEvaluation = Evaluation::where('code_number', $code_number)->first();
 
-        // Create a new Evaluation model instance and fill it with the user's responses
+        if ($existingEvaluation) {
+            return $this->updateEvaluation($request, $existingEvaluation, $code_number);
+        }
+
         $evaluation = new Evaluation();
 
         $evaluation->question1 = $validatedData['question1'] ?? null;
         $evaluation->question2 = $validatedData['question2'] ?? null;
-        $evaluation->question2_1 = $validatedData['question2_explanation'] ?? null;
+        $evaluation->question2_1 = $validatedData['question2_1'] ?? null;
         $evaluation->question3 = $validatedData['question3'] ?? null;
         $evaluation->question3_1 = $validatedData['question3_1'] ?? null;
         $evaluation->question3_2 = $validatedData['question3_2'] ?? null;
@@ -72,11 +77,11 @@ class EvaluationController extends Controller
         $evaluation->question3_13 = $validatedData['question3_13'] ?? null;
         $evaluation->question3_14 = $validatedData['question3_14'] ?? null;
         $evaluation->question4 = $validatedData['question4'] ?? null;
-        $evaluation->question4_1 = $validatedData['question4_explanation'] ?? null;
+        $evaluation->question4_1 = $validatedData['question4_1'] ?? null;
         $evaluation->question5 = $validatedData['question5'] ?? null;
-        $evaluation->question5_1 = $validatedData['question5_explanation'] ?? null;
+        $evaluation->question5_1 = $validatedData['question5_1'] ?? null;
         $evaluation->question6 = $validatedData['question6'] ?? null;
-        $evaluation->question7 = $validatedData['question7_explanation'] ?? null;
+        $evaluation->question7 = $validatedData['question7'] ?? null;
         $evaluation->code_number =  $code_number;
 
         // Save the evaluation to the database
@@ -85,5 +90,13 @@ class EvaluationController extends Controller
       
         return redirect()->route('codeteam', ['code_number' => $code_number]);
 
+    }
+
+    public function updateEvaluation(Request $request, Evaluation $existingEvaluation, $code_number)
+    {
+        $existingEvaluation->fill($request->all());
+        $existingEvaluation->save();
+        
+        return redirect()->route('codeteam', ['code_number' => $code_number]);
     }
 }
