@@ -1,10 +1,5 @@
 <?php
 
-if (App::environment('production')) {
-    URL::forceScheme('https');
-}
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
