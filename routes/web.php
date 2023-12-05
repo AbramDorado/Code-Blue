@@ -1,5 +1,9 @@
 <?php
 
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
+
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\FlowsheetController;
 use App\Http\Controllers\InitialResuscitationController;
