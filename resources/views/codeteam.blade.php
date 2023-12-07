@@ -74,8 +74,7 @@
                         <div class="form-group">
                             <label for="code_team_member">Code Team Member:</label>
                             <div class="form-inline mt-2">
-                                <button type="button" class="btn btn-danger mr-2" id="remove_member">-</button>
-                                <button type="button" class="btn btn-success mr-2" id="add_member">+</button>
+                                
                                 <label for="num_members" class="mr-2">Number of Members:</label>
                                 <input type="number" class="form-control mr-2" id="num_members" name="num_members" value="{{ old('num_members', 1) }}" min="1" max="15">
                             </div>
@@ -111,7 +110,6 @@
 
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     @php
-    dd(old());
 @endphp
             
 </form>
@@ -123,33 +121,12 @@
 </div>
 
 <!-- ... (previous code) ... -->
-
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     var container = document.getElementById('code_team_member_container');
-    var addButton = document.getElementById('add_member');
-    var removeButton = document.getElementById('remove_member');
     var numMembersInput = document.getElementById('num_members');
-
     var maxFields = 12; // Set the maximum number of fields
-
     var counter = 1;
-
-    addButton.addEventListener('click', function () {
-        if (counter < maxFields) {
-            addDropdowns(1);
-            counter++;
-        } else {
-            alert('Exceeds the maximum limit of ' + maxFields + ' fields.');
-        }
-    });
-
-    removeButton.addEventListener('click', function () {
-        if (counter > 1) {
-            removeDropdowns(1);
-            counter--;
-        }
-    });
 
     numMembersInput.addEventListener('change', function () {
         var numMembers = parseInt(numMembersInput.value);
@@ -233,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
-
 </script>
+
 
 @endsection

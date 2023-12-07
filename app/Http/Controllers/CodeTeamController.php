@@ -59,6 +59,6 @@ class CodeTeamController extends Controller
         $codeTeam->save();
 
         // Redirect back to the 'codeteam' view with the old input data
-        return redirect()->back()->withInput();
+        return redirect()->route('includes/codeblueforms');
     }
 }
