@@ -16,8 +16,10 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
 
 Route::get('/', function () {
+    \Illuminate\Support\Facades\Mail::send(new \App\Mail\EmailHospital());
     return view('auth/login');
 })->name('welcome');
+
 Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@attended' )->name('attended');
 Route::get('attended-before/{user_id}', '\App\Http\Controllers\AttendanceController@attendedBefore' )->name('attendedBefore');
 Auth::routes(['register' => false, 'reset' => false]);
@@ -26,6 +28,7 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
 
     Route::get('/admin', '\App\Http\Controllers\AdminController@index')->name('admin');
 });
+
 
 Route::get('/codeblueforms', function(){
     return view('includes/codeblueforms');
@@ -117,6 +120,7 @@ Route::get('/download-pdf/{codeEvent}', [PdfController::class, 'download'])->nam
 Route::get('/download-excel', [ExcelController::class, 'export'])->name('download-excel');
 
 Route::post('/codeblueforms/{code_number}/finalize', [FormController::class, 'finalize'])->name('finalize_codeblueforms');
+
 
 
 Route::group(['middleware' => ['auth']], function () {
