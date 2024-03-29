@@ -89,6 +89,7 @@ class ComposerStaticInitc09dc24b3d08bdc970c9084f884de045
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Svg\\' => 4,
+            'Spatie\\LaravelPackageTools\\' => 27,
             'Sabberworm\\CSS\\' => 15,
         ),
         'R' => 
@@ -138,6 +139,11 @@ class ComposerStaticInitc09dc24b3d08bdc970c9084f884de045
             'Laravel\\SerializableClosure\\' => 28,
             'Laravel\\Sanctum\\' => 16,
             'Laravel\\Sail\\' => 13,
+        ),
+        'K' => 
+        array (
+            'Koossaayy\\LaravelMapbox\\Database\\Factories\\' => 43,
+            'Koossaayy\\LaravelMapbox\\' => 24,
         ),
         'I' => 
         array (
@@ -331,6 +337,10 @@ class ComposerStaticInitc09dc24b3d08bdc970c9084f884de045
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
         ),
+        'Spatie\\LaravelPackageTools\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-package-tools/src',
+        ),
         'Sabberworm\\CSS\\' => 
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
@@ -455,6 +465,14 @@ class ComposerStaticInitc09dc24b3d08bdc970c9084f884de045
         'Laravel\\Sail\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
+        ),
+        'Koossaayy\\LaravelMapbox\\Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/koossaayy/laravel-mapbox/database/factories',
+        ),
+        'Koossaayy\\LaravelMapbox\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/koossaayy/laravel-mapbox/src',
         ),
         'Illuminate\\Support\\' => 
         array (
@@ -644,6 +662,7 @@ class ComposerStaticInitc09dc24b3d08bdc970c9084f884de045
         'App\\Http\\Requests\\EmployeeRec' => __DIR__ . '/../..' . '/app/Http/Requests/EmployeeRec.php',
         'App\\Http\\Requests\\ScheduleEmp' => __DIR__ . '/../..' . '/app/Http/Requests/ScheduleEmp.php',
         'App\\Jobs\\GetAttendanceJob' => __DIR__ . '/../..' . '/app/Jobs/GetAttendanceJob.php',
+        'App\\Mail\\EmailHospital' => __DIR__ . '/../..' . '/app/Mail/EmailHospital.php',
         'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\CodeBlueActivation' => __DIR__ . '/../..' . '/app/Models/CodeBlueActivation.php',
         'App\\Models\\CodeTeam' => __DIR__ . '/../..' . '/app/Models/CodeTeam.php',
@@ -3183,6 +3202,11 @@ class ComposerStaticInitc09dc24b3d08bdc970c9084f884de045
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Koossaayy\\LaravelMapbox\\Components\\Mapbox' => __DIR__ . '/..' . '/koossaayy/laravel-mapbox/src/Components/Mapbox.php',
+        'Koossaayy\\LaravelMapbox\\Components\\MapboxSearch' => __DIR__ . '/..' . '/koossaayy/laravel-mapbox/src/Components/MapboxSearch.php',
+        'Koossaayy\\LaravelMapbox\\Facades\\LaravelMapbox' => __DIR__ . '/..' . '/koossaayy/laravel-mapbox/src/Facades/LaravelMapbox.php',
+        'Koossaayy\\LaravelMapbox\\LaravelMapbox' => __DIR__ . '/..' . '/koossaayy/laravel-mapbox/src/LaravelMapbox.php',
+        'Koossaayy\\LaravelMapbox\\LaravelMapboxServiceProvider' => __DIR__ . '/..' . '/koossaayy/laravel-mapbox/src/LaravelMapboxServiceProvider.php',
         'Laravel\\Sail\\Console\\AddCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/AddCommand.php',
         'Laravel\\Sail\\Console\\Concerns\\InteractsWithDockerComposeServices' => __DIR__ . '/..' . '/laravel/sail/src/Console/Concerns/InteractsWithDockerComposeServices.php',
         'Laravel\\Sail\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/sail/src/Console/InstallCommand.php',
@@ -5904,6 +5928,9 @@ class ComposerStaticInitc09dc24b3d08bdc970c9084f884de045
         'SebastianBergmann\\Type\\UnknownType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnknownType.php',
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'Spatie\\LaravelPackageTools\\Exceptions\\InvalidPackage' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Exceptions/InvalidPackage.php',
+        'Spatie\\LaravelPackageTools\\Package' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Package.php',
+        'Spatie\\LaravelPackageTools\\PackageServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/PackageServiceProvider.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Svg\\CssLength' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/CssLength.php',
         'Svg\\DefaultStyle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/DefaultStyle.php',

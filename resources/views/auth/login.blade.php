@@ -186,6 +186,9 @@
                         </div>
                     </div>
                 </form>
+                <div>
+                    <a href="{{route('generalpublic')}}"> Guest </a>
+                </div> 
             </div>
         </div>
         </div>

@@ -62,6 +62,19 @@ Route::get('/users', function(){
     return view('users');
 });
 
+Route::get('/generalpublic', function(){
+    return view('generalpublic/homescreen');
+})->name('generalpublic');
+
+Route::get('/cprscreen', function(){
+    return view('generalpublic/cprscreen');
+})->name('cprscreen');
+
+Route::get('/reminders', function(){
+    return view('generalpublic/remindersscreen');
+})->name('reminders');
+
+
 // Route::get('/codeteam', [CodeTeamController::class, 'showCodeTeamForm']);
 // Route::get('/evaluation', [EvaluationController::class, 'index'])->name('evaluation');
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -74,6 +87,7 @@ Route::get('/codeteam/{code_number}', [CodeTeamController::class, 'index'])
     ->middleware('web');
 
 Route::post('/codeteam/{code_number}', [CodeTeamController::class, 'store'])->name('store_codeteam');
+
 
 Route::get('/initialresuscitation/{code_number}', [InitialResuscitationController::class, 'index'])->name('initialresuscitation');
 Route::post('/initialresuscitation/{code_number}', [InitialResuscitationController::class, 'store'])->name('store_initialresuscitation');
