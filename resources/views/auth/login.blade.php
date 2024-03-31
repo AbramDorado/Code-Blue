@@ -144,6 +144,7 @@
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
+        
     </style>
     <div class="background-filter"></div>
     <div class="page">
@@ -181,20 +182,20 @@
                     </div>
 
                     <div class="form-group row m-t-20">
-                        <div class="col-sm-8 text-right">
+                        <div class="col-12 text-center">
                             <button class="btn btn-success w-md waves-effect waves-light" type="submit">Log In</button>
                         </div>
                     </div>
                 </form>
-                <div>
-                    <a href="{{route('generalpublic')}}"> Guest </a>
-                </div> 
+                <div class="form-group row m-t-20">
+                        <div class="col-12 text-center">
+                            <a href="{{route('generalpublic')}}"> Log in as Guest </a>
+                        </div>
+                </div>
             </div>
         </div>
         </div>
     </div>
-    <!-- Log on to codeastro.com for more projects! -->
-    <!-- end wrapper-page -->
 @endsection
 
 @section('script')
