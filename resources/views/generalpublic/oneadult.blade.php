@@ -77,7 +77,6 @@
             <ul>
                 <li>Compression Depth: at least 2-2.4 inches deep.</li>
                 <li>Compression Rate: 100-120 compressions per minute.</li>
-                <li>Hand Placement: Two hands centered on the chest</li>
             </ul>
         </div>
         
