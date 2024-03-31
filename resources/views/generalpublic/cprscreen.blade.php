@@ -91,7 +91,7 @@
         <div class="main-container">
             <div id=chestCompression style="display:block;">
                 <span class="main">COMPRESSIONS</span>
-                <div id="timer">1</div>
+                <div id="timer">0</div>
             </div>
 
             <div id ="breathe" style="display:none;">
@@ -125,20 +125,21 @@ let timerElement = document.getElementById("timer");
 let timerCurrentValue = parseInt(timerElement.innerText);
 let cycleElement = document.getElementById("cycles");
 let cycleCurrentValue = parseInt(cycleElement.innerText);
+let breathElement = document.getElementById("breathTimer");
+let breathCurrentValue = parseInt(breathElement.innerText);
 
 function incrementTimer() {
     if ($("#chestCompression").is(":visible")) {
         timerCurrentValue++;
-        timerElement.innerText = timerCurrentValue;
-        document.getElementById('beatingSound').play();
-        console.log(document.getElementById('beatingSound').src);
 
-
-        if (timerCurrentValue === 31){
+        if (timerCurrentValue === 31) {
             $("#chestCompression").toggle();
             $("#breathe").toggle();
-            timerCurrentValue = 1;
+            timerCurrentValue = 0; 
             timerElement.innerText = timerCurrentValue;
+        } else {
+            timerElement.innerText = timerCurrentValue;
+            document.getElementById('beatingSound').play();
         }
     }
 }
@@ -149,19 +150,18 @@ function incrementCycle(){
 }
 
 function incrementBreathTimer(){
-    let breathElement = document.getElementById("breathTimer");
-    let breathCurrentValue = parseInt(breathElement.innerText);
-
     if ($("#breathe").is(":visible")) {
         breathCurrentValue++;
-        breathElement.innerText = breathCurrentValue;
+       
 
         if (breathCurrentValue === 3){
             $("#chestCompression").toggle();
             $("#breathe").toggle();
-            incrementTimer();
             incrementCycle();
             breathCurrentValue = 1;
+            breathElement.innerText = breathCurrentValue;
+        }
+        else{
             breathElement.innerText = breathCurrentValue;
         }
     }
@@ -193,7 +193,7 @@ function pauseCPR() {
 }
 
 function resetCPR(){
-    timerCurrentValue = 1;
+    timerCurrentValue = 0;
     timerElement.innerText = timerCurrentValue;
     cycleCurrentValue = 1;
     cycleElement.innerText = cycleCurrentValue;
