@@ -29,6 +29,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'username' => 'required|string|unique:users',
             'password' => 'required|string',
+            'role' => 'required|string|in:health_professional,first_aide',
         ]);
 
         
@@ -40,6 +41,7 @@ class UserController extends Controller
         $user->name = $validatedData['name'];
         $user->username = $validatedData['username'];
         $user->password = $validatedData['password'];
+        $user->role = $validatedData['role'];
 
         // Save the user to the database
         $user->save();

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\FlowsheetController;
 use App\Http\Controllers\InitialResuscitationController;
@@ -15,9 +17,7 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
 
-Route::get('/', function () {
-    return view('auth/login');
-})->name('welcome');
+
 Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@attended' )->name('attended');
 Route::get('attended-before/{user_id}', '\App\Http\Controllers\AttendanceController@attendedBefore' )->name('attendedBefore');
 Auth::routes(['register' => false, 'reset' => false]);
@@ -27,8 +27,22 @@ Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function 
     Route::get('/admin', '\App\Http\Controllers\AdminController@index')->name('admin');
 });
 
+Route::get('/', function () {
+    return view('auth/login');
+})->name('welcome');
+
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [LoginController::class, 'login']);
+
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register']);
+
 Route::get('/codeblueforms', function(){
     return view('includes/codeblueforms');
+});
+
+Route::get('/prehospitalcare', function(){
+    return view('includes/prehospitalcare');
 });
 
 Route::get('/maininformation', function () {

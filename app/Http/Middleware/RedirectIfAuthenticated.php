@@ -23,10 +23,16 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                // Check the user's role and redirect accordingly
+                if (Auth::user()->role === 'first_aider') {
+                    return redirect('/prehospitalcare');
+                } elseif (Auth::user()->role === 'health_professional') {
+                    return redirect('/codeblueforms');
+                } 
             }
         }
 
         return $next($request);
     }
 }
+
