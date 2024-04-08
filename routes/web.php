@@ -15,6 +15,9 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
 
+use App\Http\Controllers\PreHospitalController;
+
+
 Route::get('/', function () {
     return view('auth/login');
 })->name('welcome');
@@ -121,6 +124,10 @@ Route::post('/codeblueforms/{code_number}/finalize', [FormController::class, 'fi
 
 
 Route::group(['middleware' => ['auth']], function () {
+
+// =========================== ersion 2 pages ==========================================
+Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
+
 
 
 });
