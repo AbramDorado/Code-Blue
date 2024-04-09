@@ -16,6 +16,8 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
 
 use App\Http\Controllers\PreHospitalController;
+use App\Http\Controllers\LevelOfConsciousnessController;
+
 
 
 Route::get('/', function () {
@@ -127,6 +129,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 // =========================== ersion 2 pages ==========================================
 Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
+Route::get('/levelofconsciousness', [LevelOfConsciousnessController::class, 'index'])->name('levelofconsciousness');
 
 
 

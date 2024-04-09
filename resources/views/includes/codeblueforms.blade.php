@@ -39,7 +39,8 @@
         <form method="GET" action="{{ route('maininformation', ['code_number' => $nextCodeNumber]) }}">
             @csrf
             <button type="submit" class="btn btn-primary btn-block">New Resuscitation Event</button>
-            <a href="{{ route('prehospital') }}">Go to New Page</a>
+            <a href="{{ route('prehospital') }}">Go to pcr</a><br>
+            <a href="{{ route('levelofconsciousness') }}">Go to LOC</a>
         </form>
     @endsection
 
