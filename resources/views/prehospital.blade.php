@@ -88,7 +88,7 @@
     <a id="flowsheetBtn" class="btn btn-secondary disabled" >Sample History</a>
     <!-- Add additional buttons below -->
     <a id="outcomeBtn" class="btn btn-secondary disabled" >Vital Signs</a>
-    <a id="evaluationBtn" class="btn btn-secondary disabled" >Head To Toe Assesment</a>
+    <a id="evaluationBtn" class="btn btn-secondary disabled" >Head To Toe Assessment</a>
     <a id="codeteamBtn" class="btn btn-secondary disabled" >Receiving Medical Facility Information</a>
     <!-- Add more buttons if needed -->
 </div>

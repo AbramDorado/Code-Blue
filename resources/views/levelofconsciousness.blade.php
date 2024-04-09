@@ -66,8 +66,8 @@
       </div>
       <div class="modal-body">
         <div class="jumbotron">
-          <h1 class="display-4">Initial Resuscitation</h1>
-          <p class="lead">Airway/Ventilation and Circulation</p>
+          <h1 class="display-4">Level of Consciousness</h1>
+          <p class="lead">Level of Consciousness</p>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
     <a class="btn btn-secondary" style="color: #fff; background-color: #6c757d">Level of Consciousness</a>
     <a class="btn btn-secondary" >Sample History</a>
     <a class="btn btn-secondary" >Vital Signs</a>
-    <a class="btn btn-secondary" >Head To Toe Assesment</a>
+    <a class="btn btn-secondary" >Head To Toe Assessment</a>
     <a class="btn btn-secondary" >Receiving Medical Facility Information</a>
 </div>
 

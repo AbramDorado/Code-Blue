@@ -17,6 +17,9 @@ use App\Http\Controllers\ExcelController;
 
 use App\Http\Controllers\PreHospitalController;
 use App\Http\Controllers\LevelOfConsciousnessController;
+use App\Http\Controllers\VitalSignsController;
+use App\Http\Controllers\HTAssessmentController;
+use App\Http\Controllers\RMFInformationController;
 
 
 
@@ -130,6 +133,9 @@ Route::group(['middleware' => ['auth']], function () {
 // =========================== ersion 2 pages ==========================================
 Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
 Route::get('/levelofconsciousness', [LevelOfConsciousnessController::class, 'index'])->name('levelofconsciousness');
+Route::get('/vitalsigns', [VitalSignsController::class, 'index'])->name('vitalsigns');
+Route::get('/htassessment', [HTAssessmentController::class, 'index'])->name('htassessment');
+Route::get('/rmfinformation', [RMFInformationController::class, 'index'])->name('rmfinformation');
 
 
 
