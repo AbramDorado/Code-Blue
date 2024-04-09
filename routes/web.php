@@ -16,7 +16,8 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
-
+use App\Http\Controllers\PreHospitalController;
+use App\Http\Controllers\SampleHistoryController;
 
 Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@attended' )->name('attended');
 Route::get('attended-before/{user_id}', '\App\Http\Controllers\AttendanceController@attendedBefore' )->name('attendedBefore');
@@ -135,6 +136,14 @@ Route::post('/codeblueforms/{code_number}/finalize', [FormController::class, 'fi
 
 
 Route::group(['middleware' => ['auth']], function () {
+
+// =========================== ersion 2 pages ==========================================
+Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
+Route::post('/prehospital', [PreHospitalController::class, 'store'])->name('store_medicalinfo');
+
+Route::get('/samplehistory', [SampleHistoryController::class, 'index'])->name('samplehistory');
+Route::post('/samplehistory', [SampleHistoryController::class, 'store'])->name('store_samplehistory');
+
 
 
 });

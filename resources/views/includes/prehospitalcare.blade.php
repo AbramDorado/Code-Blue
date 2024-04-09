@@ -36,7 +36,7 @@
             }
         @endphp
 
-        <form method="GET" action="{{ route('maininformation', ['code_number' => $nextCodeNumber]) }}">
+        <form method="GET" action="{{ route('prehospital') }}">
             @csrf
             <button type="submit" class="btn btn-primary btn-block">New Pre-Hospital Care Report</button>
         </form>
