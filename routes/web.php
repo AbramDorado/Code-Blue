@@ -141,6 +141,14 @@ Route::get('/twoadult', function(){
     return view('generalpublic/twoadult');
 })->name('twoadult');
 
+Route::get('/hotlines', function () {
+    return view('generalpublic/hotlines');
+})->name('hotlines');
+
+Route::get('/howtocpr', function () {
+    return view('generalpublic/howtocpr');
+})->name('howtocpr');
+
 Route::group(['middleware' => ['auth']], function () {
 
 

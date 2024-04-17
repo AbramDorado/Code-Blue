@@ -9,8 +9,8 @@
     <style>
 
          body {
-            background-color: #EDF1F6;
-            font-family: Helvetica;
+            background-color: #EDF1F6 !important;
+            font-family: Helvetica !important;
             font-weight: bold;
             color: #4D4D4D;
         }
@@ -46,7 +46,8 @@
         }
 
         h1, h2, h3{
-            font-weight: bold;
+            font-family: Helvetica !important;
+            font-weight: bold !important;
             text-align: center;
         }
 
@@ -59,6 +60,7 @@
     </style>
 </head>
 <body>
+@include('layouts.gpublicmaster')
 <div class="container">
     <div class = "smaller-container">
         <div class="d-flex justify-content-center align-items-center" style="height: 100%">

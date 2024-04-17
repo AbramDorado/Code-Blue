@@ -8,11 +8,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
 
-         body {
-            background-color: #EDF1F6;
-            font-family: Helvetica;
-            font-weight: bold;
-            color: #4D4D4D;
+        body {
+            background-color: #EDF1F6 !important;
+            font-family: Helvetica !important;
+            font-weight: bold !important;
+            color: #4D4D4D !important;
         }
 
         .container {
@@ -39,6 +39,7 @@
             padding: 10px 20px;
             cursor: pointer;
             margin-top: 30px;
+            font-family: Helvetica !important;
         }
 
         .button-startcpr:hover {
@@ -46,7 +47,8 @@
         }
 
         h1, h2, h3{
-            font-weight: bold;
+            font-family: Helvetica !important;
+            font-weight: bold !important;
             text-align: center;
         }
 
@@ -59,6 +61,7 @@
     </style>
 </head>
 <body>
+@include('layouts.gpublicmaster')
 <div class="container">
     <div class = "smaller-container">
         <div class="d-flex justify-content-center align-items-center" style="height: 100%">

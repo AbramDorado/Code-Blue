@@ -8,21 +8,21 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <style>
         body {
-            background-color: #EDF1F6;
+            background-color: #EDF1F6 !important;
         }
 
         span{
-            font-family: Helvetica;
-            font-weight: bold;
+            font-family: Helvetica !important;
+            font-weight: bold  !important;
             font-size: x-large;
             color: #FFFFFF;
         }
 
         .rescuers, .victim{
-            font-family: Helvetica;
-            font-weight: bold;
-            font-size: x-large;
-            color: #4D4D4D;
+            font-family: Helvetica  !important;
+            font-weight: bold  !important;
+            font-size: x-large  !important;
+            color: #4D4D4D  !important;
         }
 
         .one, .two{
@@ -84,6 +84,8 @@
     </style>
 </head>
 <body>
+@extends('layouts.gpublicmaster')
+<br>
 <div class="generalpublic-container container">
     <div class="row" style="margin-top: 100px;">
         <div class="col">
@@ -132,8 +134,21 @@
             </button>
         </div>
     </div>
-</div>
 
+    <br><br><br>
+
+    <div class="form-group row m-t-20">
+        <div class="col-12 text-center">
+            <a href="{{route('hotlines')}}" style="font-family: Helvetica; font-weight: bold; font-size: large; color: #4D4D4D;">EMERGENCY HOTLINES</a>
+        </div>
+    </div>
+
+    <div class="form-group row m-t-20">
+        <div class="col-12 text-center">
+            <a href="{{route('howtocpr')}}" style="font-family: Helvetica; font-weight: bold; font-size: large; color: #4D4D4D;">HOW TO PERFORM CPR</a>
+        </div>
+    </div>
+</div>
 
 <script>
     const leftButtons = document.querySelectorAll(".left-buttons > button");

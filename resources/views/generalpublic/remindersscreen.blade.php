@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+@include('layouts.gpublicmaster')
 <style>
     .generalpublic-button-startcpr {
         background-color: #28a745;
