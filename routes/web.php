@@ -23,17 +23,14 @@ Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@att
 Route::get('attended-before/{user_id}', '\App\Http\Controllers\AttendanceController@attendedBefore' )->name('attendedBefore');
 Auth::routes(['register' => false, 'reset' => false]);
 
-Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function () {
+// Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function () {
 
-    Route::get('/admin', '\App\Http\Controllers\AdminController@index')->name('admin');
-});
+//     Route::get('/admin', '\App\Http\Controllers\AdminController@index')->name('admin');
+// });
 
 Route::get('/', function () {
     return view('auth/login');
 })->name('welcome');
-
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);

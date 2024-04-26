@@ -24,9 +24,9 @@ class RouteServiceProvider extends ServiceProvider
             return '/prehospitalcare';
         } elseif ($request->user()->role === 'health_professional') {
             return '/codeblueforms';
+        } else {
+            return '/codeblueforms'; // Default fallback
         }
-
-        return '/'; // Default fallback
     }
     
     /**
