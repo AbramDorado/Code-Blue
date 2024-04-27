@@ -135,7 +135,7 @@ Route::post('/codeblueforms/{code_number}/finalize', [FormController::class, 'fi
 Route::group(['middleware' => ['auth']], function () {
 
 // =========================== ersion 2 pages ==========================================
-Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
+Route::get('/prehospital/{patient_id}', [PreHospitalController::class, 'index'])->name('prehospital');
 Route::post('/prehospital', [PreHospitalController::class, 'store'])->name('store_medicalinfo');
 
 Route::get('/samplehistory', [SampleHistoryController::class, 'index'])->name('samplehistory');

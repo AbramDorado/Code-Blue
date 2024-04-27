@@ -27,16 +27,18 @@
 
     @section('button')
         @php
-            $lastCodeNumber = DB::table('code_blue_activations')->orderBy('code_number', 'desc')->first();
+            $latestPatientId = DB::table('medical_information')->orderBy('patient_id', 'desc')->first();
 
-            if ($lastCodeNumber) {
-                $nextCodeNumber = $lastCodeNumber->code_number + 1;
+            if ($latestPatientId) {
+                $nextPatientId = $latestPatientId->patient_id + 1;
             } else {
-                $nextCodeNumber = 1;
+                $nextPatientId = 1;
             }
+
         @endphp
 
-        <form method="GET" action="{{ route('prehospital') }}">
+
+        <form method="GET" action="{{ route('prehospital', ['patient_id' => $nextPatientId]) }}">
             @csrf
             <button type="submit" class="btn btn-primary btn-block">New Pre-Hospital Care Report</button>
         </form>
