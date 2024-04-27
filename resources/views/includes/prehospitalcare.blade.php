@@ -67,6 +67,45 @@
                         </button>
                     </form>
                 </div>
+
+                    <div class="table-responsive" style="overflow-x: auto;">
+                        <table id="datatable-buttons" class="table table-hover table-striped table-bordered dt-responsive nowrap">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Patient Name</th>
+                                    <th>Contact Number</th>
+                                    <th>Address</th>
+                                    <th>Sex</th>
+                                    <th>Age</th>
+                                    <th>Blood Type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($prehospitalEvents as $event1)
+                                <tr>
+                                    <td>{{ $event1->patient_id }}</td>
+                                    <td>{{ $event1->full_name }}</td>
+                                    <td>{{ $event1->contact_num_p }}</td>
+                                    <td>{{ $event1->address_p }}</td>
+                                    <td>{{ $event1->sex }}</td>
+                                    <td>{{ $event1->age }}</td>
+                                    <td>{{ $event1->blood_type }}</td>
+                                    <td>
+                                    <!-- <div class="btn-group" role="group" style="height: 100%;"> -->
+                                        <a href="{{ route('view_pcr', ['patient_id' => $event1->patient_id]) }}" class="btn btn-primary btn-sm" style="height: 100%; border-radius: 0;">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+
                 </div>
             </div>
         </div>

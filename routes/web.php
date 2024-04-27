@@ -16,6 +16,7 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\FirstAiderController;
 use App\Http\Controllers\PreHospitalController;
 use App\Http\Controllers\LevelOfConsciousnessController;
 use App\Http\Controllers\SampleHistoryController;
@@ -140,6 +141,10 @@ Route::post('/codeblueforms/{code_number}/finalize', [FormController::class, 'fi
 Route::group(['middleware' => ['auth']], function () {
 
 // =========================== version 2 pages ==========================================
+Route::get('/prehospitalcare', '\App\Http\Controllers\FirstAiderController@index')->name('includes/prehospitalcare');
+Route::get('/prehospitalcare/{patient_id}/view', [FirstAiderController::class, 'viewForms'])->name('view_pcr');
+
+
 Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
 Route::post('/prehospital', [PreHospitalController::class, 'store'])->name('store_medicalinfo');
 
