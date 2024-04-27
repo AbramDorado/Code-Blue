@@ -84,12 +84,12 @@
             
 <div class="fixed-header">
     <a class="btn btn-secondary" href="{{ route('prehospital') }}">Pre-Hospital Care Report</a>
-    <a id="initialResuscitationBtn" class="btn btn-secondary" >Level of Consciousness</a>
+    <a class="btn btn-secondary" href="{{ route('levelofconsciousness') }}" >Level of Consciousness</a>
     <a class="btn btn-secondary" style="color: #fff; background-color: #6c757d" >Sample History</a>
     <!-- Add additional buttons below -->
-    <a id="outcomeBtn" class="btn btn-secondary" >Vital Signs</a>
-    <a id="evaluationBtn" class="btn btn-secondary" >Head To Toe Assesment</a>
-    <a id="codeteamBtn" class="btn btn-secondary" >Receiving Medical Facility Information</a>
+    <a class="btn btn-secondary" href="{{ route('vitalsigns') }}" >Vital Signs</a>
+    <a class="btn btn-secondary" href="{{ route('htassessment') }}" >Head To Toe Assesment</a>
+    <a class="btn btn-secondary" href="{{ route('rmfinformation') }}" >Receiving Medical Facility Information</a>
     <!-- Add more buttons if needed -->
 </div>
 

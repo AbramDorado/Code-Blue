@@ -17,23 +17,25 @@ use App\Http\Controllers\FormController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\PreHospitalController;
+use App\Http\Controllers\LevelOfConsciousnessController;
 use App\Http\Controllers\SampleHistoryController;
+use App\Http\Controllers\VitalSignsController;
+use App\Http\Controllers\HTAssessmentController;
+use App\Http\Controllers\RMFInformationController;
 
 Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@attended' )->name('attended');
 Route::get('attended-before/{user_id}', '\App\Http\Controllers\AttendanceController@attendedBefore' )->name('attendedBefore');
 Auth::routes(['register' => false, 'reset' => false]);
 
-Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function () {
+// Route::group(['middleware' => ['auth', 'Role'], 'roles' => ['admin']], function () {
 
-    Route::get('/admin', '\App\Http\Controllers\AdminController@index')->name('admin');
-});
+//     Route::get('/admin', '\App\Http\Controllers\AdminController@index')->name('admin');
+// });
 
 Route::get('/', function () {
     return view('auth/login');
 })->name('welcome');
 
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-// Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -137,13 +139,24 @@ Route::post('/codeblueforms/{code_number}/finalize', [FormController::class, 'fi
 
 Route::group(['middleware' => ['auth']], function () {
 
-// =========================== ersion 2 pages ==========================================
+// =========================== version 2 pages ==========================================
 Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
 Route::post('/prehospital', [PreHospitalController::class, 'store'])->name('store_medicalinfo');
+
+Route::get('/levelofconsciousness', [LevelOfConsciousnessController::class, 'index'])->name('levelofconsciousness');
+Route::post('/levelofconsciousness', [LevelOfConsciousnessController::class, 'store'])->name('store_levelofconsciousness');
 
 Route::get('/samplehistory', [SampleHistoryController::class, 'index'])->name('samplehistory');
 Route::post('/samplehistory', [SampleHistoryController::class, 'store'])->name('store_samplehistory');
 
+Route::get('/vitalsigns', [VitalSignsController::class, 'index'])->name('vitalsigns');
+Route::post('/vitalsigns', [VitalSignsController::class, 'store'])->name('store_vitalsigns');
+
+Route::get('/htassessment', [HTAssessmentController::class, 'index'])->name('htassessment');
+Route::post('/htassessment', [HTAssessmentController::class, 'store'])->name('store_htassessment');
+
+Route::get('/rmfinformation', [RMFInformationController::class, 'index'])->name('rmfinformation');
+Route::post('/rmfinformation', [RMFInformationController::class, 'store'])->name('store_rmfinformation');
 
 
 });

@@ -28,11 +28,11 @@ class SampleHistoryController extends Controller
 
         // Validate the request data
         $validatedData = $request->validate([
-            'signs_symptoms' => 'sometimes|nullable|max:255',
+            'signs_symptoms' => 'sometimes|nullable|string|max:255',
             'allergies' => 'sometimes|nullable|string|max:255',
             'medications' => 'sometimes|nullable|string|max:255',
             'past_medical_history' => 'sometimes|nullable|string|max:255',
-            'last_oral_intake' => 'sometimes|nullable|date',
+            'last_oral_intake' => 'sometimes|nullable|string|max:255',
             'event_leading_to_injury' => 'sometimes|nullable|string|max:255',
         ]);
 
@@ -50,7 +50,7 @@ class SampleHistoryController extends Controller
         $samplehistory->save();
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Sample history saved successfully.');
+        return view('vitalsigns')->with('success', 'Sample history saved successfully.');
     }
 
 }

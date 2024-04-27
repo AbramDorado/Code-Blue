@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SampleHistory extends Model
+class HTAssessment extends Model
 {
     use HasFactory;
 
-    protected $table = 'sample_history';
+    protected $table = 'h_t_assessment'; // Changed table name to 'medical_information'
 
-    protected $primaryKey = 'sample_history_id';
+    protected $primaryKey = 'h_t_assessment_id';
 
     protected $fillable = [
-        'signs_symptoms',
-        'allergies',
-        'medications',
-        'past_medical_history',
-        'last_oral_intake',
-        'event_leading_to_injury',
+        'head',
+        'shoulders',
+        'arms',
+        'body',
+        'legs',
+        'toes',
     ];
 
     // Define relationship with the Patient model
