@@ -79,7 +79,7 @@
 
 
 </style>
-
+@extends('layouts.gpublicmaster')
 <div class="container">
     <div class="row">
         <span id="spanCycle">CYCLE</span>
