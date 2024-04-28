@@ -1,6 +1,39 @@
 @extends('layouts.master')
 
 @section('content')
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Your Page Title</title>
+    <!-- Other head elements if any -->
+</head>
+<body>
+    <!-- Your page content goes here -->
+
+    <!-- Your JavaScript includes go here -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Other script includes, if any -->
+
+    <!-- Your JavaScript code goes here -->
+    <script>
+        // Include the CSRF token in your AJAX requests
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Your existing JavaScript code here
+    </script>
+</body>
+</html>
+
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="..." crossorigin="anonymous" />
 <style>
     /* Style for the floating container */
@@ -264,6 +297,7 @@
                                         <option value="Defibrillation">Defibrillation</option>
                                         <option value="Cardioversion">Cardioversion</option>
                                         <option value="None, continued chest compressions">None, continued chest compressions</option>
+                                        <option value="Others, pharmacologic">Others, pharmacologic</option>
                                     </select>
                                 </div>
                                 
@@ -554,20 +588,27 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var data;
-    // Your JavaScript code here
-    document.getElementById('showTable').addEventListener('click', function () {
-    var $tableModal = $('#tableModal');
 
-    // Check if the modal is already initialized and fully shown
-    if ($tableModal.hasClass('in') && $tableModal.hasClass('show')) {
-        fetchAndFillTable();
-    } else {
-        // Use the modal's 'shown.bs.modal' event to ensure it's fully loaded
-        $tableModal.on('shown.bs.modal', function () {
+            // Event listener for the modal close event
+        $('#tableModal').on('hidden.bs.modal', function () {
+            // Update the modal content when it is closed
             fetchAndFillTable();
-        }).modal('show');
-    }
-});
+        });
+
+        // Your JavaScript code here
+        document.getElementById('showTable').addEventListener('click', function () {
+            var $tableModal = $('#tableModal');
+
+            // Check if the modal is already initialized and fully shown
+            if ($tableModal.hasClass('in') && $tableModal.hasClass('show')) {
+                fetchAndFillTable();
+            } else {
+                // Use the modal's 'shown.bs.modal' event to ensure it's fully loaded
+                $tableModal.on('shown.bs.modal', function () {
+                    fetchAndFillTable();
+                }).modal('show');
+            }
+        });
 
 });
 
@@ -651,15 +692,25 @@ function fetchAndFillTable() {
     var confirmDelete = confirm('Are you sure you want to delete this entry?');
 
     if (confirmDelete) {
+        // Get the CSRF token
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        // Send the CSRF token in the request headers
         $.ajax({
             url: '/destroy/' + id,
-            method: 'GET',
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
             success: function (response) {
                 console.log('Delete request successful:', response);
-                
-                $('#flowsheetTableBody tr[data-id="' + id + '"]').remove();
-                $('#tableModal').modal('hide');
-                
+
+                // Fetch and fill the table after successful deletion
+                fetchAndFillTable();
+
+                // Redirect to the flowsheet with the correct code_number
+                var code_number = '{{ $code_number }}'; // Include the PHP value here
+                window.location.href = '/flowsheet/' + code_number;
             },
             error: function (error) {
                 console.error('Error deleting row:', error);

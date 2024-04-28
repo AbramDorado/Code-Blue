@@ -56,10 +56,16 @@
 
         <ul class="list-inline menu-left mb-0" style="padding-left: 10px;">
             <li class="float-left">
+            @if (Auth::user()->role === 'first_aider')
+                <a href="/prehospitalcare" class="logo">
+            @elseif (Auth::user()->role === 'health_professional')
                 <a href="/codeblueforms" class="logo">
+            @endif
+
                 <span>
                 <div class="bg-hospital-blue">
-                <img src="{{ secure_asset('assets/images/en.png') }}" alt="enCODE Logo">
+                <img src="{{ asset('assets/images/en.png') }}" alt="enCODE Logo">
+                <!-- <img src="{{ secure_asset('assets/images/en.png') }}" alt="enCODE Logo"> -->
                 </div>
                     <!-- <h1 style="color: blue;">ERE</h1> -->
                 </span>

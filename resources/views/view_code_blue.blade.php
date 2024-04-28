@@ -589,7 +589,7 @@
                             </tr>
                             <tr>
                                 <th>Intubated by:</th>
-                                <td>{{ $codeTeam ? (is_null($codeTeam->intubated_by) ? 'N/A' : $codeTeam->intubated_by) : 'N/A' }}</td>
+                                <td>{{ $codeTeam ? ($codeTeam->intubated_by == -1 ? 'N/A' : $codeTeam->intubated_by) : 'N/A' }}</td>
                             </tr>
                         </tbody>
                     </table>

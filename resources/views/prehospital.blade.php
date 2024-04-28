@@ -74,8 +74,8 @@
       </div>
       <div class="modal-body">
         <div class="jumbotron">
-          <h1 class="display-4">Main Information</h1>
-          <p class="lead">Patient Information and Code Blue Activation.</p>
+          <h1 class="display-4">Pre-Hospital Care Report</h1>
+          <p class="lead">Pre-Hospital Care Report</p>
         </div>
       </div>
     </div>
@@ -83,13 +83,13 @@
 </div>
             
 <div class="fixed-header">
-    <a class="btn btn-secondary" style="color: #fff; background-color: #6c757d" href="{{ route('maininformation', ['code_number' => $code_number]) }}">Main Information</a>
-    <a id="initialResuscitationBtn" class="btn btn-secondary disabled" href="{{ route('initialresuscitation', ['code_number' => $code_number]) }}" >Initial Resuscitation</a>
-    <a id="flowsheetBtn" class="btn btn-secondary disabled" href="{{ route('flowsheet', ['code_number' => $code_number]) }}" >Flowsheet</a>
+    <a class="btn btn-secondary" style="color: #fff; background-color: #6c757d" >Pre-Hospital Care Report</a>
+    <a class="btn btn-secondary" href="{{ route('levelofconsciousness') }}" >Level of Consciousness</a>
+    <a class="btn btn-secondary" href="{{ route('samplehistory') }}" >Sample History</a>
     <!-- Add additional buttons below -->
-    <a id="outcomeBtn" class="btn btn-secondary disabled" href="{{ route('outcome', ['code_number' => $code_number]) }}" >Outcome of the Code</a>
-    <a id="evaluationBtn" class="btn btn-secondary disabled" href="{{ route('evaluation', ['code_number' => $code_number]) }}" >Debriefing and Evaluation</a>
-    <a id="codeteamBtn" class="btn btn-secondary disabled" href="{{ route('codeteam', ['code_number' => $code_number]) }}" >Code Team</a>
+    <a class="btn btn-secondary" href="{{ route('vitalsigns') }}" >Vital Signs</a>
+    <a class="btn btn-secondary" href="{{ route('htassessment') }}" >Head To Toe Assesment</a>
+    <a class="btn btn-secondary" href="{{ route('rmfinformation') }}" >Receiving Medical Facility Information</a>
     <!-- Add more buttons if needed -->
 </div>
 
@@ -99,213 +99,250 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-12">
-    
-    <form method="POST" action="{{ route('store_maininformation', ['code_number' => $code_number]) }}"> <!--start of the form submittion-->
+
+
+    <form method="POST" action="{{ route('store_medicalinfo') }}"> <!--start of the form submittion-->
         @csrf
 
+
         <div class="card">
-    <div class="card-header bg-secondary text-white py-2">Patient Information</div>
-    <div class="card-body">
-        <div class="row">
-            <!-- First Column -->
-            <div class="col-md-6">
-            <div class="form-group">
-                <label for="patient_pin">Patient PIN:</label>
-                <input type="text" class="form-control" name="patient_pin" id="patient_pin" 
-                    value="{{ old('patient_pin', optional($patient ?? '')->patient_pin) }}"
-                    pattern="[0-9]{1,11}" title="Please enter up to 10 numeric characters only" required>  
-                <div id="patientPinDropdown"></div>
-            </div>
+            <div class="card-header bg-secondary text-white py-2">Patient's Personal Information</div>
+            <div class="card-body">
 
-
-                <div class="form-group">
-                    <label for="visit_number">Patient Visit/Encounter Number:</label>
-                    <input type="text" class="form-control" name="visit_number" id="visit_number" 
-                    value="{{ old('visit_number', optional($patient ?? '')->visit_number) }}"
-                    pattern="[0-9]{1,11}" title="Please enter up to 10 numeric characters only">                
-                </div>
-                <label for="patient_name">Patient Name:</label>
+                <label style="font-size: larger; font-weight: bold;">Patient:</label>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="first_name" placeholder="First Name" value="{{ old('first_name', optional($patient ?? '')->first_name) }}">
+                            <label for="full_name">Patient Name:</label>
+                            <input type="text" class="form-control" name="full_name" placeholder="Full Name" value="{{ old('full_name', optional($patient ?? '')->full_name) }}">
                         </div>
                     </div>
-
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="last_name" placeholder="Last Name" value="{{ old('last_name', optional($patient ?? '')->last_name) }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="middle_name" placeholder="Middle Name" value="{{ old('middle_name', optional($patient ?? '')->middle_name) }}">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="suffix" placeholder="Suffix" value="{{ old('suffix', optional($patient ?? '')->suffix) }}">
+                            <label for="contact_num_p">Contact Number:</label>
+                            <input type="number" class="form-control" name="contact_num_p" placeholder="Contact Number" value="{{ old('contact_num_p', optional($patient ?? '')->contact_num_p) }}">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="birthday">Date of Birth:</label>
-                    <input type="date" class="form-control" name="birthday" value="{{ old('birthday', optional($patient ?? '')->birthday) }}" oninput="calculateAge()">
+                    <label for="address_p">Address:</label>
+                    <input type="text" class="form-control" name="address_p" placeholder="Address" value="{{ old('address_p', optional($patient ?? '')->address_p) }}">
                 </div>
-            </div>
 
-            <!-- Second Column -->
-            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-3"> 
+                        <div class="form-group">
+                            <label for="sex">Sex:</label>
+                            <input type="text" class="form-control" name="sex" placeholder="Male/Female" value="{{ old('sex', optional($patient ?? '')->sex) }}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="age">Age:</label>
                             <input type="number" class="form-control" name="age" value="{{ old('age', optional($patient ?? '')->age) }}">
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label for="sex">Sex:</label>
-                            <select class="form-control" name="sex">
-                                <option value="">Select a sex</option>
-                                <option value="male" {{ old('sex', optional($patient ?? '')->sex) === 'male' ? 'selected' : '' }}>Male</option>
-                                <option value="female" {{ old('sex', optional($patient ?? '')->sex) === 'female' ? 'selected' : '' }}>Female</option>
-                                <option value="other" {{ old('sex', optional($patient ?? '')->sex) === 'other' ? 'selected' : '' }}>Other</option>
-                            </select>
+                            <label for="status">Status:</label>
+                            <input type="text" class="form-control" name="status" value="{{ old('status', optional($patient ?? '')->status) }}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="blood_type">Blood Type:</label>
+                            <input type="text" class="form-control" name="blood_type" value="{{ old('blood_type', optional($patient ?? '')->blood_type) }}">
                         </div>
                     </div>
                 </div>
 
+                <label style="font-size: larger; font-weight: bold;">Companion:</label>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="height">Height (cm):</label>
-                            <input type="text" class="form-control" name="height" pattern="\d+(\.\d{1})?" title="Please enter a valid decimal number with one decimal place" value="{{ old('height', optional($patient ?? '')->height) }}">
+                            <label for="comps_name">Companion's Name:</label>
+                            <input type="text" class="form-control" name="comps_name" placeholder="Full Name" value="{{ old('comps_name', optional($patient ?? '')->comps_name) }}">
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="weight">Weight (kg):</label>
-                            <input type="text" class="form-control" name="weight" pattern="\d+(\.\d{1})?" title="Please enter a valid decimal number with one decimal place" value="{{ old('weight', optional($patient ?? '')->weight) }}">
+                            <label for="relationship">Relationship:</label>
+                            <input type="text" class="form-control" name="relationship" value="{{ old('relationship', optional($patient ?? '')->relationship) }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="address_c">Address:</label>
+                            <input type="text" class="form-control" name="address_c" placeholder="Address" value="{{ old('address_c', optional($patient ?? '')->address_c) }}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="contact_num_c">Contact Number:</label>
+                            <input type="number" class="form-control" name="contact_num_c" placeholder="Contact Number" value="{{ old('contact_num_c', optional($patient ?? '')->contact_num_c) }}">
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="allergies">Allergies:</label>
-                    <input type="text" class="form-control" name="allergies" value="{{ old('allergies', optional($patient ?? '')->allergies) }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="location">Patient Location:</label>
-                    <select class="form-control" name="location">
-                        <option value="">Select a location</option>
-                        <option value="Room A1" {{ old('location', optional($patient ?? '')->location) === 'Room A1' ? 'selected' : '' }}>Room A1</option>
-                        <option value="Room A2" {{ old('location', optional($patient ?? '')->location) === 'Room A2' ? 'selected' : '' }}>Room A2</option>
-                        <option value="Room A3" {{ old('location', optional($patient ?? '')->location) === 'Room A3' ? 'selected' : '' }}>Room A3</option>
-                    </select>
-                </div>
             </div>
         </div>
-    </div>
-</div>
 
 
         <div class="card">
-            <div class="card-header card-header bg-secondary text-white py-2">Code Blue Activation</div>
+            <div class="card-header card-header bg-secondary text-white py-2">Responders</div>
             <div class="card-body">
+
+                <label style="font-size: larger; font-weight: bold;">Responder's Information:</label>
                 <div class="row">
                     <div class="col-md-6">
                         <!-- First Column -->
                         <div class="form-group">
-                            <label for="code_number">Code Number:</label>
-                            <input type="text" class="form-control" name="code_number" value="{{ request('code_number') }}" readonly>
+                            <label for="team">Team:</label>
+                            <input type="text" class="form-control" name="team" value="{{ old('team', optional($patient ?? '')->team) }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="code_start_dt">Date/Time of Activation of Code:</label>
-                            <input type="datetime-local" class="form-control" name="code_start_dt" value="{{ old('code_start_dt', optional($codeBlueActivation ?? '')->code_start_dt ? (\Carbon\Carbon::parse($codeBlueActivation['code_start_dt'])->format('Y-m-d H:i:s')) : '') }}">
+                            <label for="plate_num">Vehicle Plate No:</label>
+                            <input type="text" class="form-control" name="plate_num" value="{{ old('plate_num', optional($patient ?? '')->plate_num) }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="arrest_dt">Date/Time of Arrest:</label>
-                            <input type="datetime-local" class="form-control" name="arrest_dt" value="{{ old('arrest_dt', optional($codeBlueActivation ?? '')->arrest_dt ? (\Carbon\Carbon::parse($codeBlueActivation['arrest_dt'])->format('Y-m-d H:i:s')) : '') }}">
+                            <label for="driver">Driver:</label>
+                            <input type="text" class="form-control" name="driver" value="{{ old('driver', optional($patient ?? '')->driver) }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="reason_for_activation">Reason for Code Blue Activation:</label>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="reason_unconscious">
-                                        <input type="radio" name="reason_for_activation" value="unconscious" id="reason_unconscious" {{ old('reason_for_activation', optional($codeBlueActivation ?? '')->reason_for_activation) === 'unconscious' ? 'checked' : '' }}>
-                                        Unconscious
-                                    </label>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label for="reason_pulseless">
-                                        <input type="radio" name="reason_for_activation" value="pulseless" id="reason_pulseless" {{ old('reason_for_activation', optional($codeBlueActivation ?? '')->reason_for_activation) === 'pulseless' ? 'checked' : '' }}>
-                                        Pulseless
-                                    </label>
-                                </div>
-                            </div>
+                            <label for="reporter">Reporter:</label>
+                            <input type="text" class="form-control" name="reporter" value="{{ old('reporter', optional($patient ?? '')->reporter) }}">
                         </div>
+
                     </div>
 
                     <div class="col-md-6">
                         <!-- Second Column -->
                         <div class="form-group">
-                            <label for="initial_reporter">Initially Reported By:</label>
-                            <select class="form-control" name="initial_reporter" id="initial_reporter" style="margin-bottom: 8px;">
-                                @foreach($users as $user)
-                                    <option value="{{ $user->name }}" {{ (session('old.initial_reporter') ?? '') == $user->name ? 'selected' : '' }}>
-                                        {{ $user->name }}
-                                    </option>
-                                @endforeach
-                                <option value="other" {{ (session('old.initial_reporter') ?? '') == 'other' ? 'selected' : '' }}>Other</option>
-                            </select>
-                            <input type="text" class="form-control" name="other_reporter" id="other_reporter" placeholder="Enter other name" style="{{ (session('old.initial_reporter') ?? '') == 'other' ? '' : 'display: none;' }}" value="{{ session('old.other_reporter') }}">
+                            <label for="cameraman">Cameraman:</label>
+                            <input type="text" class="form-control" name="cameraman" value="{{ old('cameraman', optional($patient ?? '')->cameraman) }}">
                         </div>
 
                         <div class="form-group">
-                            <label for="code_team_arrival_dt">Date/Time Code Team Arrival:</label>
-                            <input type="datetime-local" class="form-control" name="code_team_arrival_dt" value="{{ old('code_team_arrival_dt', optional($codeBlueActivation ?? '')->code_team_arrival_dt ? (\Carbon\Carbon::parse($codeBlueActivation['code_team_arrival_dt'])->format('Y-m-d H:i:s')) : '') }}">
+                            <label for="team_leader">Team Leader:</label>
+                            <input type="text" class="form-control" name="team_leader" value="{{ old('team_leader', optional($patient ?? '')->team_leader) }}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="e_cart_arrival_dt">Date/Time e-Cart Arrival:</label>
-                            <input type="datetime-local" class="form-control" name="e_cart_arrival_dt"  value="{{ old('e_cart_arrival_dt', optional($codeBlueActivation ?? '')->e_cart_arrival_dt ? (\Carbon\Carbon::parse($codeBlueActivation['e_cart_arrival_dt'])->format('Y-m-d H:i:s')) : '') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="witnessed">Witnessed?</label>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="witnessed_yes">
-                                        <input type="radio" name="witnessed" value="yes" id="witnessed_yes" {{ old('witnessed', optional($codeBlueActivation ?? '')->witnessed) === 'yes' ? 'checked' : '' }}>
-                                        Yes
-                                    </label>
+                        <label>Crew:</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="crew1" placeholder="Crew1" value="{{ old('crew1', optional($patient ?? '')->crew1) }}">
                                 </div>
+                            </div>
 
-                                <div class="col-md-6">
-                                    <label for="witnessed_no">
-                                        <input type="radio" name="witnessed" value="no" id="witnessed_no" {{ old('witnessed', optional($codeBlueActivation ?? '')->witnessed) === 'no' ? 'checked' : '' }}>
-                                        No
-                                    </label>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="crew2" placeholder="Crew2" value="{{ old('crew2', optional($patient ?? '')->crew2) }}">
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="crew3" placeholder="Crew3" value="{{ old('crew3', optional($patient ?? '')->crew3) }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="crew4" placeholder="Crew4" value="{{ old('crew4', optional($patient ?? '')->crew4) }}">
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+
+                </div>
+
+                <label style="font-size: larger; font-weight: bold;">Response Details:</label>
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- First Column -->
+                        <div class="form-group">
+                            <label for="departure_base_time">Time of Departure from base:</label>
+                            <input type="time" class="form-control" name="departure_base_time" value="{{ old('departure_base_time', optional($patient ?? '')->departure_base_time ? (\Carbon\Carbon::parse($patient['departure_base_time'])->format('H:i')) : '') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="arrival_scene_time">Time of Arrival at the Scene:</label>
+                            <input type="time" class="form-control" name="arrival_scene_time" value="{{ old('arrival_scene_time', optional($patient ?? '')->arrival_scene_time ? (\Carbon\Carbon::parse($patient['arrival_scene_time'])->format('H:i')) : '') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="arrival_hospital_time">Time of Arrival at the Hospital:</label>
+                            <input type="time" class="form-control" name="arrival_hospital_time" value="{{ old('arrival_hospital_time', optional($patient ?? '')->arrival_hospital_time ? (\Carbon\Carbon::parse($patient['arrival_hospital_time'])->format('H:i')) : '') }}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">  
+                        <!-- Second Column -->
+                        <div class="form-group">
+                            <label for="departure_hospital_time">Time of Departure at the Hospital:</label>
+                            <input type="time" class="form-control" name="departure_hospital_time" value="{{ old('departure_hospital_time', optional($patient ?? '')->departure_hospital_time ? (\Carbon\Carbon::parse($patient['departure_hospital_time'])->format('H:i')) : '') }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="arrival_base_time">Time of Arrival at the base:</label>
+                            <input type="time" class="form-control" name="arrival_base_time" value="{{ old('arrival_base_time', optional($patient ?? '')->arrival_base_time ? (\Carbon\Carbon::parse($patient['arrival_base_time'])->format('H:i')) : '') }}">
+                        </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
+
+
+        <div class="card">
+            <div class="card-header card-header bg-secondary text-white py-2">Incident Information</div>
+            <div class="card-body">
+
+                <div class="form-group">
+                    <label for="incident_dt">Date/Time of Incident:</label>
+                    <input type="datetime-local" class="form-control" name="incident_dt" value="{{ old('incident_dt', optional($patient ?? '')->incident_dt ? (\Carbon\Carbon::parse($patient['incident_dt'])->format('Y-m-d H:i:s')) : '') }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location:</label>
+                    <input type="text" class="form-control" name="location" value="{{ old('location', optional($patient ?? '')->location) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="incident_type">Type of Incident:</label>
+                    <input type="text" class="form-control" name="incident_type" placeholder="Trauma/Medical" value="{{ old('incident_type', optional($patient ?? '')->incident_type) }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="incident_nature">Nature of Incident:</label>
+                    <input type="text" class="form-control" name="incident_nature" placeholder="Vehicular/Motor/Fire/Assault/Disaster/Others" value="{{ old('incident_nature', optional($patient ?? '')->incident_nature) }}">
+                </div>
+                
+                <!-- Remarks -->
+                <div class="form-group">
+                    <label for="remarks">Remarks on Incident:</label>
+                    <input type="text" class="form-control" name="remarks">
+                </div>
+
+            </div>
+        </div>
+        
 
         <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-chevron-right" aria-hidden="true"></i></button> <!-- Added btn-block class for width -->
     </form> <!--end of the form submission-->

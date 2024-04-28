@@ -99,16 +99,15 @@ class FlowsheetController extends Controller
 
     public function destroy($id)
     {
-        $flowsheet = Flowsheet::where('flowsheet_id', $id)->first();
+        $flowsheet = Flowsheet::find($id);
     
         if ($flowsheet) {
             $flowsheet->delete();
             return response()->json(['success' => 'Flowsheet deleted successfully', 'flowsheet' => $flowsheet]);
-    
         } else {
             return response()->json(['error' => 'Flowsheet not found']);
         }
-    }
+    }    
 
     public function edit($id)
     {

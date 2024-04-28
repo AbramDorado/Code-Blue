@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -24,12 +25,12 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // /**
+    //  * Where to redirect users after registration.
+    //  *
+    //  * @var string
+    //  */
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -51,10 +52,12 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'role' => ['required', 'string', 'in:health_professional,first_aider'],
         ]);
     }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -66,8 +69,20 @@ class RegisterController extends Controller
     {
         return User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
+            'role' => $data['role'], // Make sure 'role' is included
         ]);
+    }
+
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        return view('auth.login');
     }
 }

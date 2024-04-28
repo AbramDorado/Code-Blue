@@ -100,9 +100,9 @@
             padding: 30px 20px;
         }
 
-        .form-group {
+        /* .form-group {
             margin-bottom: 20px;
-        }
+        } */
 
         label {
             color: #444;
@@ -130,6 +130,18 @@
             border-color: #0056b3;
         }
 
+        .btn-primary {
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 20px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+
         .welcome-text {
             font-size: 36px;
             text-align: left;
@@ -149,53 +161,141 @@
     <div class="background-filter"></div>
     <div class="page">
         <div class="left-content">
-        <div class="card overflow-hidden account-card mx-3">
+        <div class="card account-card mx-3">
         <div class="bg-hospital-blue">
             <img src="{{ asset('assets/images/en.png') }}" alt="enCODE Logo">
 
         </div>
-            <div class="account-card-content">
-                <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <div class="form-group">
-                        <label for="username" class="col-form-label">Username</label>
-                        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
-                            name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
-                        @error('username')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password" class="col-form-label">Password</label>
-                        <input id="password" type="password"
-                            class="form-control @error('password') is-invalid @enderror" name="password" required
-                            autocomplete="current-password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="form-group row m-t-20">
-                        <div class="col-12 text-center">
-                            <button class="btn btn-success w-md waves-effect waves-light" type="submit">Log In</button>
-                        </div>
-                    </div>
-                </form>
+        <div class="account-card-content" style="padding: 20px;">
+            <!-- Login Form -->
+            <form id="login-form" class="form-horizontal" method="POST" action="{{ route('login') }}">
+                @csrf
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label for="username" class="col-form-label">Username</label>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                        name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                    @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password" class="col-form-label">Password</label>
+                    <input id="password" type="password"
+                        class="form-control @error('password') is-invalid @enderror" name="password" required
+                        autocomplete="current-password">
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!-- Login Button -->
                 <div class="form-group row m-t-20">
+                    <div class="col-sm-12 text-center">
+                        <button class="btn btn-success w-md waves-effect waves-light" type="submit">Log In</button>
+                        <button id="register-button" class="btn btn-primary w-md waves-effect waves-light">Register</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Registration Form -->
+            <form id="register-form" class="form-horizontal" method="POST" action="{{ route('register') }}" style="display: none; overflow: auto;">
+                @csrf
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name" class="col-form-label">Name</label>
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
+                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label for="username" class="col-form-label">Username</label>
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror"
+                        name="username" value="{{ old('username') }}" required autocomplete="username">
+                    @error('username')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!-- Password Field -->
+                <div class="form-group">
+                    <label for="password" class="col-form-label">Password</label>
+                    <input id="password" type="password"
+                        class="form-control @error('password') is-invalid @enderror" name="password" required
+                        autocomplete="new-password">
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!-- Role Field -->
+                <div class="form-group">
+                    <label for="role" class="col-form-label">Role</label>
+                    <select id="role" class="form-control @error('role') is-invalid @enderror" name="role"
+                        required>
+                        <option value="health_professional">Health Professional</option>
+                        <option value="first_aider">First Aider</option>
+                    </select>
+                    @error('role')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!-- Register Button -->
+                <div class="form-group row m-t-20">
+                    <div class="col-sm-12 text-center">
+                        <button id="login-button" class="btn btn-primary w-md waves-effect waves-light">Login</button>
+                        <button class="btn btn-success w-md waves-effect waves-light" type="submit">Register</button>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group row m-t-20">
                         <div class="col-12 text-center">
                             <a href="{{route('generalpublic')}}"> Log in as Guest </a>
                         </div>
-                </div>
-            </div>
+             </div>
+        </div>
         </div>
         </div>
     </div>
+    <!-- Log on to codeastro.com for more projects! -->
+    <!-- end wrapper-page -->
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get references to the forms and buttons
+        const loginForm = document.getElementById("login-form");
+        const registerForm = document.getElementById("register-form");
+        const loginButton = document.getElementById("login-button");
+        const registerButton = document.getElementById("register-button");
+
+        // Show the login form by default
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+
+        // Add event listeners to the buttons to toggle between forms
+        loginButton.addEventListener("click", function() {
+            loginForm.style.display = "block";
+            registerForm.style.display = "none";
+        });
+
+        registerButton.addEventListener("click", function() {
+            loginForm.style.display = "none";
+            registerForm.style.display = "block";
+        });
+    });
+</script>
 @endsection
 
 @section('script')

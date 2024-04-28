@@ -123,23 +123,23 @@
                                         @if (!$event->is_finalized)
                                             <form method="POST" action="{{ route('finalize_codeblueforms', ['code_number' => $event->code_number]) }}">
                                                 @csrf
-                                                <div class="form-group">
-                                                    <label for="code_team_leader_password">Code Team Leader Password:</label>
-                                                    <input type="password" name="code_team_leader_password" required>
+                                                <div class="form-group" style="margin-top: 8px;">
+                                                    <label for="code_team_leader_password" class="text-danger">Unfinalized</label>
+                                                    <input type="password" name="code_team_leader_password" placeholder="Code Leader Password" required>
+                                                    <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle"></i></button>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Finalize</button>
                                             </form>
                                         @else
                                             <!-- The event is finalized, hide the buttons -->
                                             <span class="text-success">Finalized</span>
                                         @endif
                                         
-<!-- Display an alert for incorrect password -->
-@if($event->code_number == session('error_code_number'))
-    <div class="alert alert-danger mt-2">
-        {{ session('error') }}
-    </div>
-@endif
+                                        <!-- Display an alert for incorrect password -->
+                                        @if($event->code_number == session('error_code_number'))
+                                            <div class="alert alert-danger mt-2">
+                                                {{ session('error') }}
+                                            </div>
+                                        @endif
                                         <!-- End Finalize button -->
                                     </td>
                                 </tr>

@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Patient; 
-use App\Models\CodeBlueActivation;  
+use App\Models\CodeBlueActivation;
+use App\Models\User;  
 
 
 class MainInformationController extends Controller
-{
+{   
     function index($code_number)
-    {   
-        // $code_number = request('code_number', '000'); // Commented out to avoid overriding the $code_number parameter passed to the function
-        
+    {
+        $usersController = new UserController();
+        $users = $usersController->getNames();
+
         // Fetch CodeBlueActivation based on the provided $code_number
         $codeBlueActivation = CodeBlueActivation::where('code_number', $code_number)->first();
 
@@ -24,7 +26,7 @@ class MainInformationController extends Controller
         }
 
         // Return the view with necessary data
-        return view('maininformation', compact('code_number', 'codeBlueActivation', 'patient'));
+        return view('maininformation', compact('code_number', 'users', 'codeBlueActivation', 'patient'));
     }
 
     
@@ -32,15 +34,31 @@ class MainInformationController extends Controller
     {
         $patientController = new PatientController;
         $codeBlueActivationController = new CodeBlueActivationController;
-
+    
         // Validate and store/update patient information
         $patient_pin = $request->input('patient_pin');
         $patientController->storeOrUpdate($request, $patient_pin, $code_number);
-
+    
         // Validate and store/update code blue activation information
         $codeBlueActivationController->storeOrUpdate($request, $code_number);
-
+    
+        // Check if the selected initial reporter is "other"
+        $initialReporter = $request->input('initial_reporter');
+        if ($initialReporter === 'other') {
+            // Use the value from the manual input field
+            $initialReporter = $request->input('other_reporter');
+        }
+    
+        // Update your database with $initialReporter
+        // For example, if you have a CodeBlueActivation model, you might do:
+        $codeBlueActivation = CodeBlueActivation::where('code_number', $code_number)->first();
+        if ($codeBlueActivation) {
+            $codeBlueActivation->initial_reporter = $initialReporter;
+            $codeBlueActivation->save();
+        }
+    
         return view('initialresuscitation', ['code_number' => $code_number]);
     }
-
+    
+    
 }

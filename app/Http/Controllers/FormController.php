@@ -11,6 +11,7 @@ use App\Models\Outcome;
 use App\Models\Evaluation;
 use App\Models\CodeTeam;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class FormController extends Controller
@@ -149,7 +150,16 @@ class FormController extends Controller
         ->from('patients as table1')
         ->leftjoin('code_blue_activations as table2', 'table1.patient_pin', '=', 'table2.patient_pin')
         ->leftjoin('outcomes as table3', 'table2.code_number', '=', 'table3.code_number')
-        ->leftjoin('code_teams as table4', 'table2.code_number', '=', 'table4.code_number') 
+        ->leftjoin(
+            DB::raw('(SELECT code_number, MAX(created_at) AS max_created_at FROM code_teams GROUP BY code_number) AS latest_teams'),
+            'table2.code_number',
+            '=',
+            'latest_teams.code_number'
+        )
+        ->leftjoin('code_teams as table4', function ($join) {
+            $join->on('table2.code_number', '=', 'table4.code_number');
+            $join->on('table4.created_at', '=', 'latest_teams.max_created_at');
+        })       
         ->where('table2.is_archived', false) // Add this condition to filter out archived events
         ->orderBy('table1.created_at', 'desc')
         ->get();
