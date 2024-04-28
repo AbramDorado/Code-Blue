@@ -11,14 +11,26 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to the "home" route for your application.
+     * Define the home route for the application.
      *
      * This is used by Laravel authentication to redirect users after login.
      *
-     * @var string
+     * @param \Illuminate\Http\Request $request
+     * @return string
      */
-    public const HOME = '/codeblueforms';
-
+    public function redirectTo($request)
+    {
+        if ($request->user()->role === 'first_aider') {
+            return '/prehospitalcare';
+        } elseif ($request->user()->role === 'health_professional') {
+            return '/codeblueforms';
+        } else {
+            return '/codeblueforms'; // Default fallback
+        }
+        
+        return '/'; // Default fallback
+    }
+    
     /**
      * The controller namespace for the application.
      *
