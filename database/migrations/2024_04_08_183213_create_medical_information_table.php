@@ -44,7 +44,7 @@ class CreateMedicalInformationTable extends Migration
             $table->datetime('incident_dt')->nullable();
             $table->string('location')->nullable();
             $table->string('incident_type')->nullable();
-            $table->string('nature_of_incident')->nullable();
+            $table->string('incident_nature')->nullable();
             $table->string('remarks')->nullable();
             $table->timestamps();
         });

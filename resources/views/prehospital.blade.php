@@ -84,12 +84,12 @@
             
 <div class="fixed-header">
     <a class="btn btn-secondary" style="color: #fff; background-color: #6c757d" >Pre-Hospital Care Report</a>
-    <a id="initialResuscitationBtn" class="btn btn-secondary" >Level of Consciousness</a>
-    <a class="btn btn-secondary" href="{{ route('samplehistory') }}">Sample History</a>
+    <a class="btn btn-secondary" href="{{ route('levelofconsciousness') }}" >Level of Consciousness</a>
+    <a class="btn btn-secondary" href="{{ route('samplehistory') }}" >Sample History</a>
     <!-- Add additional buttons below -->
-    <a id="outcomeBtn" class="btn btn-secondary" >Vital Signs</a>
-    <a id="evaluationBtn" class="btn btn-secondary" >Head To Toe Assesment</a>
-    <a id="codeteamBtn" class="btn btn-secondary" >Receiving Medical Facility Information</a>
+    <a class="btn btn-secondary" href="{{ route('vitalsigns') }}" >Vital Signs</a>
+    <a class="btn btn-secondary" href="{{ route('htassessment') }}" >Head To Toe Assesment</a>
+    <a class="btn btn-secondary" href="{{ route('rmfinformation') }}" >Receiving Medical Facility Information</a>
     <!-- Add more buttons if needed -->
 </div>
 
@@ -131,15 +131,10 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3"> 
                         <div class="form-group">
                             <label for="sex">Sex:</label>
-                            <select class="form-control" name="sex">
-                                <option value="">Select a sex</option>
-                                <option value="male" {{ old('sex', optional($patient ?? '')->sex) === 'male' ? 'selected' : '' }}>Male</option>
-                                <option value="female" {{ old('sex', optional($patient ?? '')->sex) === 'female' ? 'selected' : '' }}>Female</option>
-                                <option value="other" {{ old('sex', optional($patient ?? '')->sex) === 'other' ? 'selected' : '' }}>Other</option>
-                            </select>
+                            <input type="text" class="form-control" name="sex" placeholder="Male/Female" value="{{ old('sex', optional($patient ?? '')->sex) }}">
                         </div>
                     </div>
 
@@ -328,33 +323,15 @@
                     <label for="location">Location:</label>
                     <input type="text" class="form-control" name="location" value="{{ old('location', optional($patient ?? '')->location) }}">
                 </div>
+
+                <div class="form-group">
+                    <label for="incident_type">Type of Incident:</label>
+                    <input type="text" class="form-control" name="incident_type" placeholder="Trauma/Medical" value="{{ old('incident_type', optional($patient ?? '')->incident_type) }}">
+                </div>
                 
                 <div class="form-group">
-                    <label>Type of Incident:</label><br>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="incident_type[]" value="Trauma">
-                        <label class="form-check-label" for="trauma">Trauma</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="incident_type[]" value="Medical">
-                        <label class="form-check-label" for="medical">Medical</label>
-                    </div>
-                </div>
-
-
-                <!-- Nature of Incident -->
-                <div class="form-group">
-                    <label for="nature_of_incident">Nature of Incident:</label><br>
-                    <select class="form-control" name="nature_of_incident">
-                        <option value="" disabled selected>Select</option>
-                        <option value="Vehicular Accident">Vehicular Accident</option>
-                        <option value="Motorcycle Accident">Motorcycle Accident</option>
-                        <option value="Fire">Fire</option>
-                        <option value="Assault">Assault</option>
-                        <option value="Disaster">Disaster</option>
-                        <option value="Patient Conduction">Patient Conduction</option>
-                        <option value="Others">Others</option>
-                    </select>
+                    <label for="incident_nature">Nature of Incident:</label>
+                    <input type="text" class="form-control" name="incident_nature" placeholder="Vehicular/Motor/Fire/Assault/Disaster/Others" value="{{ old('incident_nature', optional($patient ?? '')->incident_nature) }}">
                 </div>
                 
                 <!-- Remarks -->

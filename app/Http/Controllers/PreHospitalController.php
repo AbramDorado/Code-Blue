@@ -72,6 +72,8 @@ class PreHospitalController extends Controller
             'arrival_base_time' => 'sometimes|nullable|string|max:255',
             'incident_dt' => 'sometimes|nullable|date',
             'location' => 'sometimes|nullable|string|max:255',
+            'incident_type' => 'sometimes|nullable|string|max:255',
+            'incident_nature' => 'sometimes|nullable|string|max:255',
             'remarks' => 'sometimes|nullable|string|max:255',
         ]);
 
@@ -105,6 +107,8 @@ class PreHospitalController extends Controller
         $medicalInformation->arrival_base_time = $validatedData['arrival_base_time'] ?? null;
         $medicalInformation->incident_dt = $validatedData['incident_dt'] ?? null;
         $medicalInformation->location = $validatedData['location'] ?? null;
+        $medicalInformation->incident_type = $validatedData['incident_type'] ?? null;
+        $medicalInformation->incident_nature = $validatedData['incident_nature'] ?? null;
         $medicalInformation->remarks = $validatedData['remarks'] ?? null;
 
         // Save the medical information to the database
@@ -112,7 +116,7 @@ class PreHospitalController extends Controller
         session(['patient_id' => $medicalInformation->patient_id]);
 
         // Redirect the user back to the previous page or wherever you want
-        return redirect()->back()->with('success', 'Medical information saved successfully.');
+        return view('levelofconsciousness')->with('success', 'Medical information saved successfully.');
     }
 
     // public function store(Request $request)

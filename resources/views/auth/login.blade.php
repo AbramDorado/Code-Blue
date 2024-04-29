@@ -156,6 +156,7 @@
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
+        
     </style>
     <div class="background-filter"></div>
     <div class="page">
@@ -259,6 +260,11 @@
                     </div>
                 </div>
             </form>
+            <div class="form-group row m-t-20">
+                        <div class="col-12 text-center">
+                            <a href="{{route('generalpublic')}}"> Log in as Guest </a>
+                        </div>
+             </div>
         </div>
         </div>
         </div>

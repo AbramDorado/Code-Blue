@@ -43,8 +43,32 @@ class MedicalInformation extends Model
         'incident_dt',
         'location',
         'incident_type',
-        'nature_of_incident',
+        'incident_nature',
         'remarks',
     ];
 
+    public function levelofconsciousness()
+    {
+        return $this->hasOne(LevelOfConsciousness::class, 'patient_id', 'patient_id');
+    }
+
+    public function samplehistory()
+    {
+        return $this->hasOne(SampleHistory::class, 'patient_id', 'patient_id');
+    }
+    
+    public function vitalsigns()
+    {
+        return $this->hasOne(VitalSigns::class, 'patient_id', 'patient_id');
+    }
+    
+    public function htassessment()
+    {
+        return $this->hasOne(HTassessment::class, 'patient_id', 'patient_id');
+    }
+    
+    public function rmfinformation()
+    {
+        return $this->hasOne(RMFInformation::class, 'patient_id', 'patient_id');
+    }
 }

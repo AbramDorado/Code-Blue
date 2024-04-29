@@ -16,9 +16,18 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\FirstAiderController;
 use App\Http\Controllers\PreHospitalController;
+use App\Http\Controllers\LevelOfConsciousnessController;
 use App\Http\Controllers\SampleHistoryController;
+use App\Http\Controllers\VitalSignsController;
+use App\Http\Controllers\HTAssessmentController;
+use App\Http\Controllers\RMFInformationController;
 
+Route::get('/', function () {
+    \Illuminate\Support\Facades\Mail::send(new \App\Mail\EmailHospital());
+    return view('auth/login');
+})->name('welcome');
 Route::get('attended/{user_id}', '\App\Http\Controllers\AttendanceController@attended' )->name('attended');
 Route::get('attended-before/{user_id}', '\App\Http\Controllers\AttendanceController@attendedBefore' )->name('attendedBefore');
 Auth::routes(['register' => false, 'reset' => false]);
@@ -32,8 +41,12 @@ Route::get('/', function () {
     return view('auth/login');
 })->name('welcome');
 
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [LoginController::class, 'login']);
+
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+
 
 Route::get('/codeblueforms', function(){
     return view('includes/codeblueforms');
@@ -71,10 +84,11 @@ Route::get('/users', function(){
     return view('users');
 });
 
-// Route::get('/codeteam', [CodeTeamController::class, 'showCodeTeamForm']);
-// Route::get('/evaluation', [EvaluationController::class, 'index'])->name('evaluation');
+//users
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::post('/store_user', [UserController::class, 'store'])->name('store_user');
+
+//medical personell screens
 
 Route::put('/update_user/{id}', [UserController::class, 'updateUser'])->name('update_user');
 
@@ -88,10 +102,6 @@ Route::get('/initialresuscitation/{code_number}', [InitialResuscitationControlle
 Route::post('/initialresuscitation/{code_number}', [InitialResuscitationController::class, 'store'])->name('store_initialresuscitation');
 
 Route::get('/flowsheet/{code_number}', [FlowsheetController::class, 'index'])->name('flowsheet');
-// Route::get('/flowsheet/{code_number}/data', [FlowsheetController::class, 'getFlowsheetsData'])->name('flowsheets.index');
-
-// Route::match(['get', 'post'], '/store/{code_number}', [FlowsheetController::class, 'store'])->name('store_flowsheet');
-
 Route::get('/evaluation/{code_number}', [EvaluationController::class, 'index'])->name('evaluation');
 Route::post('/evaluation/{code_number}', [EvaluationController::class, 'store'])->name('store_evaluation');
 
@@ -110,37 +120,82 @@ Route::delete('/destroy/{id}', [FlowsheetController::class, 'destroy'])->name('d
 Route::get('/edit/{id}', [FlowsheetController::class, 'edit'])->name('edit');
 Route::put('/update/{id}', [FlowsheetController::class, 'update'])->name('update');
 Route::post('/store/{code_number}', [FlowsheetController::class, 'store'])->name('store_flowsheet'); 
-// Route::post('/store', [FlowsheetController::class, 'store'])->name('store_flowsheet');
 Route::get('/codeblueforms', '\App\Http\Controllers\FormController@index')->name('includes/codeblueforms');
 
 Route::delete('/delete-user/{id}', '\App\Http\Controllers\UserController@deleteUser')->name('delete_user');
 
-
 Route::get('/codeblueforms/{patient_pin}/{code_number}/view', [FormController::class, 'viewCodeBlue'])->name('view_codeblueforms');
-// Route::get('/codeblueforms/{code_number}/edit', [FormController::class, 'edit'])->name('edit_codeblueforms');
 Route::post('/codeblueforms/{code_number}/archive', [FormController::class, 'archive'])->name('archive_codeblueforms');
 
-
-//for achrive
 Route::get('/archived_codeblueforms', 'App\Http\Controllers\ArchiveController@archivedCodeBlueForms')->name('archived_codeblueforms');
 Route::patch('/unarchive_codeblueforms/{code_number}', [FormController::class,'unarchive'])->name('unarchive_codeblueforms');
-
 
 Route::get('/download-pdf/{codeEvent}', [PdfController::class, 'download'])->name('download-pdf');
 Route::get('/download-excel', [ExcelController::class, 'export'])->name('download-excel');
 
 Route::post('/codeblueforms/{code_number}/finalize', [FormController::class, 'finalize'])->name('finalize_codeblueforms');
 
+//general public screens
+Route::get('/generalpublic', function(){
+    return view('generalpublic/homescreen');
+})->name('generalpublic');
+
+Route::get('/cprscreen', function(){
+    return view('generalpublic/cprscreen');
+})->name('cprscreen');
+
+Route::get('/cprscreenii', function(){
+    return view('generalpublic/cprscreenii');
+})->name('cprscreenii');
+
+Route::get('/onechild', function(){
+    return view('generalpublic/onechild');
+})->name('onechild');
+
+Route::get('/oneadult', function(){
+    return view('generalpublic/oneadult');
+})->name('oneadult');
+
+Route::get('/twochild', function(){
+    return view('generalpublic/twochild');
+})->name('twochild');
+
+Route::get('/twoadult', function(){
+    return view('generalpublic/twoadult');
+})->name('twoadult');
+
+Route::get('/hotlines', function () {
+    return view('generalpublic/hotlines');
+})->name('hotlines');
+
+Route::get('/howtocpr', function () {
+    return view('generalpublic/howtocpr');
+})->name('howtocpr');
 
 Route::group(['middleware' => ['auth']], function () {
 
 // =========================== ersion 2 pages ==========================================
 Route::get('/prehospital/{patient_id}', [PreHospitalController::class, 'index'])->name('prehospital');
 Route::post('/prehospital', [PreHospitalController::class, 'store'])->name('store_medicalinfo');
+Route::get('/prehospitalcare', '\App\Http\Controllers\FirstAiderController@index')->name('includes/prehospitalcare');
+Route::get('/prehospitalcare/{patient_id}/view', '\App\Http\Controllers\FirstAiderController@viewForms')->name('view_pcr');
+Route::get('/download-PCRpdf/{patient_id}', [PdfController::class, 'downloadPCR'])->name('download-PCRpdf');
+
+
+Route::get('/levelofconsciousness', [LevelOfConsciousnessController::class, 'index'])->name('levelofconsciousness');
+Route::post('/levelofconsciousness', [LevelOfConsciousnessController::class, 'store'])->name('store_levelofconsciousness');
 
 Route::get('/samplehistory', [SampleHistoryController::class, 'index'])->name('samplehistory');
 Route::post('/samplehistory', [SampleHistoryController::class, 'store'])->name('store_samplehistory');
 
+Route::get('/vitalsigns', [VitalSignsController::class, 'index'])->name('vitalsigns');
+Route::post('/vitalsigns', [VitalSignsController::class, 'store'])->name('store_vitalsigns');
+
+Route::get('/htassessment', [HTAssessmentController::class, 'index'])->name('htassessment');
+Route::post('/htassessment', [HTAssessmentController::class, 'store'])->name('store_htassessment');
+
+Route::get('/rmfinformation', [RMFInformationController::class, 'index'])->name('rmfinformation');
+Route::post('/rmfinformation', [RMFInformationController::class, 'store'])->name('store_rmfinformation');
 
 
 });

@@ -11,6 +11,8 @@ class SampleHistory extends Model
 
     protected $table = 'sample_history';
 
+    protected $primaryKey = 'sample_history_id';
+
     protected $fillable = [
         'signs_symptoms',
         'allergies',

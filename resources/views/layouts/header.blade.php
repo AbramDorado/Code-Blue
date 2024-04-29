@@ -21,6 +21,33 @@
             $currentUser = Auth::user();
 
             if ($currentUser && $currentUser->name === "Admin"): ?>
+                @if(Route::currentRouteName() == 'includes/codeblueforms' || 
+                    Route::currentRouteName() == 'maininformation' || 
+                    Route::currentRouteName() == 'store_maininformation' || 
+                    Route::currentRouteName() == 'initialresuscitation' || 
+                    Route::currentRouteName() == 'store_initialresuscitation' || 
+                    Route::currentRouteName() == 'flowsheet' || 
+                    Route::currentRouteName() == 'store_flowsheet' || 
+                    Route::currentRouteName() == 'outcome' || 
+                    Route::currentRouteName() == 'store_outcome' || 
+                    Route::currentRouteName() == 'evaluation' || 
+                    Route::currentRouteName() == 'codeteam')
+                    <li class="dropdown notification-list">
+                        <div class="dropdown-toggle nav-link waves-effect">
+                            <a href="/prehospitalcare">
+                                <i class="ti-forms"></i> Pre-Hospital Care
+                            </a>
+                        </div>
+                    </li>
+                @else
+                <li class="dropdown notification-list">
+                        <div class="dropdown-toggle nav-link waves-effect">
+                            <a href="/codeblueforms">
+                                <i class="ti-forms"></i> Resuscitation Event
+                            </a>
+                        </div>
+                    </li>
+                @endif
                 <li class="dropdown notification-list">
                     <div class="dropdown-toggle nav-link waves-effect">
                         <a href="/users">
@@ -60,6 +87,22 @@
                 <a href="/prehospitalcare" class="logo">
             @elseif (Auth::user()->role === 'health_professional')
                 <a href="/codeblueforms" class="logo">
+            @else
+                @if(Route::currentRouteName() == 'includes/codeblueforms' || 
+                        Route::currentRouteName() == 'maininformation' || 
+                        Route::currentRouteName() == 'store_maininformation' || 
+                        Route::currentRouteName() == 'initialresuscitation' || 
+                        Route::currentRouteName() == 'store_initialresuscitation' || 
+                        Route::currentRouteName() == 'flowsheet' || 
+                        Route::currentRouteName() == 'store_flowsheet' || 
+                        Route::currentRouteName() == 'outcome' || 
+                        Route::currentRouteName() == 'store_outcome' || 
+                        Route::currentRouteName() == 'evaluation' || 
+                        Route::currentRouteName() == 'codeteam')
+                    <a href="/codeblueforms" class="logo">
+                @else
+                    <a href="/prehospitalcare" class="logo">
+                @endif
             @endif
 
                 <span>
