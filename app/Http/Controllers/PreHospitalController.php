@@ -8,12 +8,22 @@ use App\Models\MedicalInformation; // Import the MedicalInformation model
 
 class PreHospitalController extends Controller
 {
-    public function index()
+    public function index($patient_id)
     {
+        // $latestPatientId = MedicalInformation::latest('patient_id')->value('patient_id');
+        // // Increment the patient_id by 1 to generate a new one
+        // $patientId = $latestPatientId + 1;
+
+        // // Store the newly generated patient_id in the session
+        // session(['patient_id' => $patientId]);
+
+        // $patient_id = MedicalInformation::where('patient_id', $patient_id)->first();
+
         // Retrieve the latest medical information
-        $medicalInfo = MedicalInformation::latest()->first();
+        $medicalInfo = MedicalInformation::where('patient_id', $patient_id)->first();
 
         // If medical information is found, get the associated patient_id
+        $patient = null;
         if ($medicalInfo) {
             $patientId = $medicalInfo->patient_id;
 
@@ -23,8 +33,10 @@ class PreHospitalController extends Controller
             return view('prehospital', compact('patient'));
         }
 
+        session(['patient_id' => $patient_id]);
+    
         // If no medical information is found, return the view without patient details
-        return view('prehospital');
+        return view('prehospital', compact('patient'));
     }
 
 

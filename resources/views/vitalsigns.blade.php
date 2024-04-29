@@ -72,7 +72,7 @@
 </div>
 
 <div class="fixed-header">
-    <a class="btn btn-secondary" href="{{ route('prehospital') }}" >Pre-Hospital Care Report</a>
+    <a class="btn btn-secondary" href="{{ route('prehospital', ['patient_id' => session('patient_id')]) }}">Pre-Hospital Care Report</a>
     <a class="btn btn-secondary" href="{{ route('levelofconsciousness') }}" >Level of Consciousness</a>
     <a class="btn btn-secondary" href="{{ route('samplehistory') }}" >Sample History</a>
     <a class="btn btn-secondary" style="color: #fff; background-color: #6c757d">Vital Signs</a>

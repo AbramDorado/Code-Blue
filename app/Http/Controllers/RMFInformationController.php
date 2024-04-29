@@ -42,6 +42,8 @@ class RMFInformationController extends Controller
         $rmfinformation->save();
 
         // Redirect back with a success message
-        return view('includes/prehospitalcare')->with('success', ' Receiving Medical Facility Information saved successfully.');
+        // return view('includes/prehospitalcare')->with('success', ' Receiving Medical Facility Information saved successfully.');
+        return redirect()->route('includes/prehospitalcare');
+        // return redirect()->route('includes/codeblueforms');
     }
 }

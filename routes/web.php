@@ -41,6 +41,8 @@ Route::get('/', function () {
     return view('auth/login');
 })->name('welcome');
 
+// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
@@ -172,13 +174,13 @@ Route::get('/howtocpr', function () {
 
 Route::group(['middleware' => ['auth']], function () {
 
-// =========================== version 2 pages ==========================================
-Route::get('/prehospitalcare', '\App\Http\Controllers\FirstAiderController@index')->name('includes/prehospitalcare');
-Route::get('/prehospitalcare/{patient_id}/view', [FirstAiderController::class, 'viewForms'])->name('view_pcr');
-
-
-Route::get('/prehospital', [PreHospitalController::class, 'index'])->name('prehospital');
+// =========================== ersion 2 pages ==========================================
+Route::get('/prehospital/{patient_id}', [PreHospitalController::class, 'index'])->name('prehospital');
 Route::post('/prehospital', [PreHospitalController::class, 'store'])->name('store_medicalinfo');
+Route::get('/prehospitalcare', '\App\Http\Controllers\FirstAiderController@index')->name('includes/prehospitalcare');
+Route::get('/prehospitalcare/{patient_id}/view', '\App\Http\Controllers\FirstAiderController@viewForms')->name('view_pcr');
+Route::get('/download-PCRpdf/{patient_id}', [PdfController::class, 'downloadPCR'])->name('download-PCRpdf');
+
 
 Route::get('/levelofconsciousness', [LevelOfConsciousnessController::class, 'index'])->name('levelofconsciousness');
 Route::post('/levelofconsciousness', [LevelOfConsciousnessController::class, 'store'])->name('store_levelofconsciousness');

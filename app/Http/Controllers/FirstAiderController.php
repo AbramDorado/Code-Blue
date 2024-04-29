@@ -19,7 +19,8 @@ class FirstAiderController extends Controller
     public function viewForms($patient_id)
     {
         // Fetch information from each table based on the code_number
-        $prehospital = MedicalInformation::where('patient_id', $patient_id)->first();
+        session(['patient_id' => $patient_id]);
+        $patient = MedicalInformation::where('patient_id', $patient_id)->first();
         $levelofconsciousness = LevelOfConsciousness::where('patient_id', $patient_id)->first();
         $samplehistory = SampleHistory::where('patient_id', $patient_id)->first();
         $vitalsigns = VitalSigns::where('patient_id', $patient_id)->first();
@@ -27,7 +28,7 @@ class FirstAiderController extends Controller
         $rmfinformation = RMFInformation::where('patient_id', $patient_id)->first();
 
         // Pass the data to the view
-        return view('prehospital', compact('prehospital', 'levelofconsciousness', 'samplehistory', 'vitalsigns', 'htassessment', 'rmfinformation'));
+        return view('prehospital', compact('patient', 'levelofconsciousness', 'samplehistory', 'vitalsigns', 'htassessment', 'rmfinformation'));
     }
     
     //DELETE FUNCTION IN CASE IN THE FUTURE

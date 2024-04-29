@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SampleHistory;
+use App\Models\MedicalInformation;
 
 class SampleHistoryController extends Controller
 {
@@ -36,6 +37,12 @@ class SampleHistoryController extends Controller
             'event_leading_to_injury' => 'sometimes|nullable|string|max:255',
         ]);
 
+        $existingPatient = SampleHistory::where('patient_id', $patientId)->first();
+
+        if ($existingPatient) {
+            return $this->updateSample($request, $patientId);
+        }
+
         $validatedData['patient_id'] = $patientId;
 
         // Create a new sample history record
@@ -52,5 +59,15 @@ class SampleHistoryController extends Controller
         // Redirect back with a success message
         return view('vitalsigns')->with('success', 'Sample history saved successfully.');
     }
+
+    private function updateSample(Request $request, $patientId)
+    {
+        $samplehistory = SampleHistory::findOrFail($patientId);
+        $samplehistory->fill($request->all());
+        $samplehistory->save();
+
+        return redirect()->back()->with('success', 'Sample history saved successfully.');
+    }
+
 
 }

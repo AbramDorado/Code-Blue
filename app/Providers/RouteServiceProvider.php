@@ -27,8 +27,6 @@ class RouteServiceProvider extends ServiceProvider
         } else {
             return '/codeblueforms'; // Default fallback
         }
-        
-        return '/'; // Default fallback
     }
     
     /**

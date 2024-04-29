@@ -27,16 +27,18 @@
 
     @section('button')
         @php
-            $lastCodeNumber = DB::table('code_blue_activations')->orderBy('code_number', 'desc')->first();
+            $latestPatientId = DB::table('medical_information')->orderBy('patient_id', 'desc')->first();
 
-            if ($lastCodeNumber) {
-                $nextCodeNumber = $lastCodeNumber->code_number + 1;
+            if ($latestPatientId) {
+                $nextPatientId = $latestPatientId->patient_id + 1;
             } else {
-                $nextCodeNumber = 1;
+                $nextPatientId = 1;
             }
+
         @endphp
 
-        <form method="GET" action="{{ route('prehospital') }}">
+
+        <form method="GET" action="{{ route('prehospital', ['patient_id' => $nextPatientId]) }}">
             @csrf
             <button type="submit" class="btn btn-primary btn-block">New Pre-Hospital Care Report</button>
         </form>
@@ -94,9 +96,17 @@
                                     <td>{{ $event1->blood_type }}</td>
                                     <td>
                                     <!-- <div class="btn-group" role="group" style="height: 100%;"> -->
-                                        <a href="{{ route('view_pcr', ['patient_id' => $event1->patient_id]) }}" class="btn btn-primary btn-sm" style="height: 100%; border-radius: 0;">
+                                        <!-- <a href="{{ route('view_pcr', ['patient_id' => $event1->patient_id]) }}" class="btn btn-primary btn-sm" style="height: 100%; border-radius: 0;">
                                             <i class="fas fa-eye"></i>
+                                        </a> -->
+
+                                        <a href="{{ route('view_pcr', ['patient_id' => $event1->patient_id]) }}" class="btn btn-primary btn-sm" style="height: 100%; border-radius: 0;">
+                                                <i class="fas fa-pencil-alt"></i>
                                         </a>
+
+                                        <!-- <a href="{{ route('download-PCRpdf', ['patient_id' => $event1->patient_id]) }}" class="btn btn-primary btn-sm" style="height: 100%; border-radius: 0;">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a> -->
                                     </td>
 
                                 </tr>
